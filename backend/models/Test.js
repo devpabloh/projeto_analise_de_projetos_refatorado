@@ -10,5 +10,6 @@ const Test = sequelize.define('Test', {
 })
 
 Test.belongsTo(Project, {foreignKey: 'projectId', as: 'project'}); // belongsTo é um método que define que um teste pertence a um projeto. foreignKey é o nome do campo que vai armazenar o id do projeto. as é o nome do campo que vai armazenar o projeto.
+Project.hasMany(Test, {foreignKey: "projectId", as: "tests"})
 
 export default Test;

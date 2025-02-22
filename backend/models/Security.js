@@ -1,6 +1,6 @@
 import {DataTypes} from "sequelize";
 import sequelize from "../config/database.js"
-import Project from "./Project.js";
+import Project from "./project.js";
 
 const Security = sequelize.define('Security', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}, 

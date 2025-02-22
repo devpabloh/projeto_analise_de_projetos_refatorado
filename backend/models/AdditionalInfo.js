@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
-import Project from "./Project.js";
+import Project from "./project.js";
 
 const AdditionalInfo = sequelize.define('AdditionalInfo', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -12,6 +12,6 @@ const AdditionalInfo = sequelize.define('AdditionalInfo', {
 })
 
 AdditionalInfo.belongsTo(Project, {foreignKey: 'projectId', as: 'project'})
-Project.hasMany('AdditionalInfo', {foreignKey: 'productId', as: 'AdditionalInfo'})
+Project.hasMany(AdditionalInfo, { foreignKey: 'projectId', as: 'additionalInfos' })
 
 export default AdditionalInfo

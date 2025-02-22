@@ -1,6 +1,6 @@
 import { DataTypes} from "sequelize";
 import sequelize from "../config/database.js";
-import Project from "./Project.js";
+import Project from "./project.js";
 
 const Team = sequelize.define('Team', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -10,6 +10,6 @@ const Team = sequelize.define('Team', {
 })
 
 Team.belongsTo(Project, {foreignKey: 'projectId', as: 'project'})
-Project.hasMany(Team, {foreignKey: 'projectId', as: 'teams'})
+Project.hasMany(Team, {foreignKey: 'projectId', as: 'team'})
 
 export default Team;
