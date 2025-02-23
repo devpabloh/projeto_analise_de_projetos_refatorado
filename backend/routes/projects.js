@@ -1,25 +1,23 @@
 import express from "express"; // importando o express que serve para criar o servidor node.js
 import Project from "../models/project.js"; // importando o modelo de tabela project.js, que contém os dados, tipos de dados e relações entre os modelos de tabela.
+import { authMiddleware } from "../middlewares/authMiddleware.js";
+import { createProject, deleteProject, getProjectId, listProjects, updateProject } from "../controller/projectController.js";
 
 const router = express.Router(); // estamos criando uma variavel router que vai receber um novo objeto express.Router(), que serve para criar rotas.
 
-router.post("/", async (requisicao, resposta) => {
-    try {
-        const {name, description, phase, startDate, deadLine, userId} = requisicao.body;
-        const project = await Project.create({name, description, phase, startDate, deadLine, userId})
-        resposta.status(201).json(project);
-    } catch (error) {
-        resposta.status(500).json({ error: error.message });
-    }
-})
+// Rota para criar um novo projeto
+router.post("/", authMiddleware, createProject)
 
-router.get("/", async (requisicao, resposta)=>{
-    try {
-        const projects = await Project.findAll()
-        resposta.json(projects)
-    } catch (error) {
-        resposta.status(500).json({ error: error.message });
-    }
-})
+// Rota para listar todos os projetos
+router.get('/', authMiddleware, listProjects)
+
+// Rota para recuperar um projeto específico por ID
+router.get("/:id", authMiddleware, getProjectId)
+
+// Rota para atualizar um projeto
+router.put("/:id", authMiddleware, updateProject)
+
+// Rota para deletar um projeto
+router.delete("/:id", authMiddleware, deleteProject)
 
 export default router;
