@@ -22,7 +22,7 @@ function Login({onLogin}){
             // // Callback para informar que o usuário está logado (por exemplo, redirecionar para dashboard)
             onLogin(response.data.user);
         } catch (err) {
-            setError('Erro ao fazer login. Verifique suas credenciais.');
+            setError('Erro ao fazer login. Verifique suas credenciais.', err);
         }
     }
 
