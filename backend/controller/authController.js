@@ -1,5 +1,6 @@
-import User from "../models/User";
+import User from "../models/User.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export async function register(requisicao, resposta){
     try{
@@ -13,7 +14,7 @@ export async function register(requisicao, resposta){
         }
 
         // criptografa a senha antes de salvar
-        const hashedPassword = await bcrypt.hash(password, "10") // o 10 é o nivel de complexidade da senha.
+        const hashedPassword = await bcrypt.hash(password, 10) // o 10 é o nivel de complexidade da senha.
 
         // Cria o usuário
         const user = await User.create({
@@ -32,20 +33,29 @@ export async function register(requisicao, resposta){
 
 export async function login(requisicao, resposta){
     try {
-        const {email, password} = await requisicao.body
+        console.log('1. Dados recebidos:', requisicao.body);
+        const email = requisicao.body.email
+        const password = requisicao.body.password
 
         // Procura o usuário pelo email
+        console.log('2. Email extraído:', email);
+        console.log('2.1 Password extraído', password)
         const user = await User.findOne({where: {email}})
+        console.log('3. Usuário encontrado:', user);
         if(!user){
             return resposta.status(401).json({message: "Email inválido"})
         }
 
         // Comparar a senha informada com a senha criptografada armazenada no banco de dados
-        const validPassword = await bcrypt.compare(password, User.password)
+        console.log('4. Senha fornecida:', password);
+        console.log('5. Senha armazenada:', user.password);
+        const validPassword = await bcrypt.compare(password, user.password)
+        console.log('6. Senha válida:', validPassword);
 
         if(!validPassword){
             return resposta.status(401).json({message: "Senha inválida"})
         }
+        console.log('7. Gerando token com:', { id: user.id, role: user.role });
 
         // Gerar o token, que serve para autenticar o usuário
         const token = jwt.sign(
@@ -53,7 +63,7 @@ export async function login(requisicao, resposta){
             process.env.JWT_SECRET,
             {expiresIn: "1h"}
         )
-
+        console.log('8. Token gerado com sucesso');
         resposta.json({token, user: {id: user.id, name: user.name, role: user.role}})
 
     } catch (error) {
