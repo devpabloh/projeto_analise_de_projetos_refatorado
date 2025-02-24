@@ -1,5 +1,4 @@
 import express from "express"; // importando o express que serve para criar o servidor node.js
-import Project from "../models/project.js"; // importando o modelo de tabela project.js, que contém os dados, tipos de dados e relações entre os modelos de tabela.
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 import { createProject, deleteProject, getProjectId, listProjects, updateProject } from "../controller/projectController.js";
 
