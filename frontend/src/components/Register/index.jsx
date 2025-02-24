@@ -1,5 +1,7 @@
 import { useState } from "react"
 import axios from "axios"
+import styles from "./Register.module.css"
+
 
 function Register(){
     const [error, setError] = useState("")
@@ -11,7 +13,7 @@ function Register(){
         event.preventDefault({onRegister})
         try {
             // Fazendo requisição para o endpoint de registro
-            const response = await axios.post("http://localhost:3000/auth/register", {name,email, password})
+            const response = await axios.post("http://localhost:3000/analiseDeProjetos/auth/register", {name,email, password})
 
             onRegister(response.data)
         } catch (err) {
