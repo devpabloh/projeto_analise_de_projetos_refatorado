@@ -1,3 +1,4 @@
+
 import dotenv from 'dotenv'; // importando o dotenv que serve para carregar as variaveis de ambiente
 dotenv.config() // carregando as variaveis de ambiente
 
@@ -5,6 +6,7 @@ import express from "express"; // importando o express que serve para criar o se
 import bodyParser from "body-parser"; // importando o body-parser que serve para trabalhar com o corpo da requisição HTTP
 import cors from 'cors'; // importando o cors que serve para trabalhar com o cabeçalho CORS
 import sequelize from "./config/database.js"; // importando a conexão com o banco de dados que está em database.js
+import authRoutes from "./routes/auth.js"; // importando as rotas de autenticação que estão em auth.js, nesse arquivo auth que estamos importando foi o arquivo de rotas criado anteriormente. Aqui nós vamos utilizar para definir as rotas de autenticação.
 
 
 // importando os modelos para a sicronização do banco de dados
@@ -28,9 +30,12 @@ const PORT = process.env.PORT || 3000; // definindo a porta que o servidor vai r
 const app = express(); // aqui estamos criando uma variavel app que vai receber um novo objeto express(), esse objeto é utilizado para criar o servidor node.js
 
 app.use(cors()); // aqui estamos usando o cors() que é um middleware que permite que o servidor aceite requisicoes de qualquer origem
+app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: true })); // aqui estamos usando o bodyParser.urlencoded() que é um middleware que permite que o servidor receba dados no formato x-www-form-urlencoded
 app.use(bodyParser.json()); // aqui estamos usando o bodyParser.json() que é um middleware que permite que o servidor receba dados no formato JSON
 
 // Rotas
+app.use('/analiseDeProjetos/auth', authRoutes); // estamos utilizando o app.use() que é um middleware que permite que o servidor aceite requisicoes de qualquer origem, authRoutes é a rota que estamos utilizando para o modelo de tabela User
 app.use('/analiseDeProjetos/users', userRoutes); // estamos utilizando o app.use() que é um middleware que permite que o servidor aceite requisicoes de qualquer origem, userRoutes é a rota que estamos utilizando para o modelo de tabela User
 app.use('/analiseDeProjetos/projects', projectRoutes);
 
