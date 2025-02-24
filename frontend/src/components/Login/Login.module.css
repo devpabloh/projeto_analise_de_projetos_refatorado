@@ -1,0 +1,76 @@
+.containerGeral{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  filter: drop-shadow(var(--shadow-primary));
+}
+
+.containerImagem{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 450px;
+  height: 550px;
+  background-color: var(--color-tertiary);
+  border-radius: 20px 0 0 20px;
+}
+
+.containerBackgroundLogin{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 450px;
+  height: 550px;
+  background-color: var(--color-secondary);
+  border-radius: 0 20px 20px 0px;
+}
+
+.containerLogin{
+  width: 300px;
+  height: 300px;
+  color: var(--color-secondary);
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: var(--shadow-primary);
+}
+
+.containerForm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.containerLogin input{
+  border-radius: 8px;
+  padding: .5rem;
+  border: 1px solid var(--color-quaternary);
+}
+
+.containerLogin button{
+  margin-top: 1rem;
+  border-radius: 8px;
+  padding:.5rem 3rem;
+  border: inherit;
+  background-color: var(--color-secondary);
+  color: white;
+  cursor: pointer;
+  
+  
+}
+
+.containerLogin button:hover{
+  background-color: var(--color-primary);
+  scale: 1.05;
+  transition: scale 0.5s ease-in-out;
+}
+
+.containerLogin input:focus{
+  outline: 2px solid var(--color-secondary);
+  border: inherit;
+  color: var(--color-secondary);
+}
+
+.containerLogin input:focus::placeholder{
+  color: var(--color-secondary);
+}
