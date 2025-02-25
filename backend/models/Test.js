@@ -6,6 +6,7 @@ const Test = sequelize.define('Test', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     testType: {type: DataTypes.STRING}, // tipo do teste
     tools: {type: DataTypes.STRING}, // ferramentas utilizadas
+    otherTests: {type: DataTypes.TEXT}, // outros testes realizados
     frequency: {type: DataTypes.STRING} // frequência do teste
 })
 

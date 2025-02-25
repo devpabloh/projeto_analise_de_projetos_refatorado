@@ -9,15 +9,16 @@
   --padding-medium:1.5rem;
   --padding-large:2rem;
 
-  
-
-  color: rgba(255, 255, 255, 0.87);
-  background-color: rgb(230, 228, 228);
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body{
@@ -25,5 +26,9 @@ body{
   font-family: var(--font-primary);
   line-height: 1.5;
   font-weight: 400;
+}
+
+fieldset{
+  border: 1px solid #0000005e;
 }
 
