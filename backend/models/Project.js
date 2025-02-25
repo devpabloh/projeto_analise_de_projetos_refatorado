@@ -6,9 +6,12 @@ import User from "./User.js"; // importando o model do usuário, que é o modelo
 
 const Project = sequelize.define('Project', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, allowNull: false},
-    description: { type: DataTypes.TEXT}, // TEXT é um tipo de dado que permite que o campo tenha um texto grande, como uma descrição de um projeto.
-    phase: {type: DataTypes.STRING },
+    projectName: { type: DataTypes.STRING, allowNull: false }, // nome do projeto
+    projectDescription: { type: DataTypes.TEXT }, // descrição do projeto
+    responsibleFillingOut: { type: DataTypes.STRING }, // responsável pelo preenchimento do formulário
+    responsibleContact: { type: DataTypes.STRING }, // contato do responsável pelo preenchimento do formulário
+    fillingDate: { type: DataTypes.DATE }, // data de preenchimento do formulário
+    currentPhaseProject: {type: DataTypes.STRING }, // fase atual do projeto
     startDate: {type: DataTypes.DATE},
     deadline: {type: DataTypes.DATE}
 })
