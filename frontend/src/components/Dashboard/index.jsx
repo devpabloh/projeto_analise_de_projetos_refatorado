@@ -1,6 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 import ProjectModal from "../ProjectModal/ProjectModal";
+import Header from "../Header";
+import Footer from "../Footer";
+import styles from "./Dashboard.module.css";
 
 function Dashboard({user, onLogout}){
     const [modalOpen, setModalOpen] = useState(false);
@@ -41,33 +44,39 @@ function Dashboard({user, onLogout}){
 
 
     return(
-        <div>
-            <h1>Dashboard</h1>
-            <p>Bem vindo, {user.name}</p>
+        <div className={styles.dashboardContainer}>
+            <Header/>
+            <main className={styles.mainContent}>
+                <h1>Dashboard</h1>
+                <p>Bem vindo, {user.name}</p>
 
-            {user.role === 'admin' ? (
-                <p>Você é um administrador</p>
-            ):(
-                <div style={{ padding: "20px" }}>
-                    <h1>Meus Projetos</h1>
-                    <button onClick={openModal} style={{ marginBottom: "20px" }}>
-                        Adicionar Projeto
-                    </button>
-                    <ul> 
-                        {projects.map((project) => (
-                        <li key={project.id}>
-                            <strong>{project.name}</strong> - {project.phase}
-                        </li>
-                        ))}
-                    </ul>
-                    <ProjectModal
-                        isOpen={modalOpen}
-                        isClose={closeModal}
-                        onSave={handleSaveProject}
-                    />
-                </div>
-            )}
-            <button onClick={handleLogout}>Sair</button>
+                {user.role === 'admin' ? (
+                    <p>Você é um administrador</p>
+                ) : (
+                    <div className={styles.projectsSection}>
+                        <h1>Meus Projetos</h1>
+                        <button 
+                            onClick={openModal} 
+                            className={styles.addButton}
+                        >
+                            Adicionar Projeto
+                        </button>
+                        <ul className={styles.projectsList}> 
+                            {projects.map((project) => (
+                                <li key={project.id} className={styles.projectItem}>
+                                    <strong>{project.name}</strong> - {project.phase}
+                                </li>
+                            ))}
+                        </ul>
+                        <ProjectModal
+                            isOpen={modalOpen}
+                            isClose={closeModal}
+                            onSave={handleSaveProject}
+                        />
+                    </div>
+                )}
+            </main>
+            <Footer/>
         </div>
     )
 }

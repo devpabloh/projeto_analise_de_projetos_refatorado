@@ -1,15 +1,35 @@
 import { DataTypes} from "sequelize";
 import sequelize from "../config/database.js";
-import Project from "./project.js";
 
 const Team = sequelize.define('Team', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    memberName: {type: DataTypes.STRING, allowNull: false},
-    role: {type: DataTypes.STRING },
-    contact: {type: DataTypes.STRING},
+    id: { 
+        type: DataTypes.INTEGER, 
+        primaryKey: true, 
+        autoIncrement: true
+    },
+    projectId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'Projects',
+            key: 'id'
+        }
+    },
+    technicalLeaderName: {
+        type: DataTypes.STRING
+    },
+    projectManagerName: {
+        type: DataTypes.STRING
+    },
+    technicalSupport: {
+        type: DataTypes.STRING
+    },
+    supportName: {
+        type: DataTypes.STRING
+    },
+    supportPeriod: {
+        type: DataTypes.STRING
+    }
 })
 
-Team.belongsTo(Project, {foreignKey: 'projectId', as: 'project'})
-Project.hasMany(Team, {foreignKey: 'projectId', as: 'team'})
 
 export default Team;

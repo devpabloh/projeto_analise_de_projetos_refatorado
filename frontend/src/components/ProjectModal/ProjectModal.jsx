@@ -78,44 +78,47 @@ function ProjectModal({isOpen, isClose, onSave}){
     return(
         <div className={styles.overlaySyle} onClick={handleOverlayClick}>
             <div className={styles.modalStyle} ref={modalRef} onClick={(e) => e.stopPropagation()}>
-                <h2>Adicionar Project</h2>
-                <form onSubmit={handleSubmit}>
-                    <FieldsetGeneralInformation
-                        formData={formData}
-                        onChange={handleChange}
-                    />
-                    <FieldsetDevelopmentStatus
-                        formData={formData}
-                        onChange={handleChange}
-                    />
-                    <FieldsetTestingAndQuality
-                        formData={formData}
-                        onChange={handleChange}
-                    />
-                    <FieldsetDeploymentEnvironment
-                        formData={formData}
-                        onChange={handleChange}
-                    />
-                    <FieldsetDocumentation
-                        formData={formData}
-                        onChange={handleChange}
-                    />
-                    <FieldsetTeamAndSupport
-                        formData={formData}
-                        onChange={handleChange}
-                    />
-                    <FieldsetSecurityAndCompliance
-                        formData={formData}
-                        onChange={handleChange}
-                    />
-                    <FieldsetOtherConsiderations
-                        formData={formData}
-                        onChange={handleChange}
-                    />
-                    <button type="submit">
-                        Salvar Projeto
-                    </button>
-                </form>
+                <fieldset>
+                    <legend>Adicionar projeto</legend>
+                    <form onSubmit={handleSubmit}>
+                        <FieldsetGeneralInformation
+                            formData={formData}
+                            onChange={handleChange}
+                        />
+                        <FieldsetDevelopmentStatus
+                            formData={formData}
+                            onChange={handleChange}
+                        />
+                        <FieldsetTestingAndQuality
+                            formData={formData}
+                            onChange={handleChange}
+                        />
+                        <FieldsetDeploymentEnvironment
+                            formData={formData}
+                            onChange={handleChange}
+                        />
+                        <FieldsetDocumentation
+                            formData={formData}
+                            onChange={handleChange}
+                        />
+                        <FieldsetTeamAndSupport
+                            formData={formData}
+                            onChange={handleChange}
+                        />
+                        <FieldsetSecurityAndCompliance
+                            formData={formData}
+                            onChange={handleChange}
+                        />
+                        <FieldsetOtherConsiderations
+                            formData={formData}
+                            onChange={handleChange}
+                        />
+                        <button type="submit">
+                            Salvar Projeto
+                        </button>
+                    </form>
+                </fieldset>
+                
             </div>
         </div>  
     )

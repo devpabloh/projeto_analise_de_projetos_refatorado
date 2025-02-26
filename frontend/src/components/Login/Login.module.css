@@ -20,14 +20,16 @@
   align-items: center;
   justify-content: center;
   width: 450px;
-  height: 550px;
   background-color: var(--color-secondary);
   border-radius: 0 20px 20px 0px;
 }
 
 .containerLogin{
-  width: 300px;
-  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 325px;
+  height: 425px;
   color: var(--color-secondary);
   background-color: white;
   border-radius: 15px;
@@ -41,36 +43,15 @@
   gap: 1rem;
 }
 
-.containerLogin input{
-  border-radius: 8px;
-  padding: .5rem;
-  border: 1px solid var(--color-quaternary);
+.buttonContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: .8rem;
 }
 
-.containerLogin button{
-  margin-top: 1rem;
-  border-radius: 8px;
-  padding:.5rem 3rem;
-  border: inherit;
-  background-color: var(--color-secondary);
-  color: white;
-  cursor: pointer;
-  
-  
-}
-
-.containerLogin button:hover{
-  background-color: var(--color-primary);
-  scale: 1.05;
-  transition: scale 0.5s ease-in-out;
-}
-
-.containerLogin input:focus{
-  outline: 2px solid var(--color-secondary);
-  border: inherit;
-  color: var(--color-secondary);
-}
-
-.containerLogin input:focus::placeholder{
-  color: var(--color-secondary);
+.buttonContainer button{
+  width: 180px;
+  padding: .7rem;
 }

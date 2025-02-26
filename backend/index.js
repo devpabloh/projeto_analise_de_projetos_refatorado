@@ -2,24 +2,25 @@
 import dotenv from 'dotenv'; // importando o dotenv que serve para carregar as variaveis de ambiente
 dotenv.config() // carregando as variaveis de ambiente
 
-import express from "express"; // importando o express que serve para criar o servidor node.js
-import bodyParser from "body-parser"; // importando o body-parser que serve para trabalhar com o corpo da requisição HTTP
-import cors from 'cors'; // importando o cors que serve para trabalhar com o cabeçalho CORS
-import sequelize from "./config/database.js"; // importando a conexão com o banco de dados que está em database.js
-import authRoutes from "./routes/auth.js"; // importando as rotas de autenticação que estão em auth.js, nesse arquivo auth que estamos importando foi o arquivo de rotas criado anteriormente. Aqui nós vamos utilizar para definir as rotas de autenticação.
+import express from "express"; 
+import bodyParser from "body-parser"; 
+import cors from 'cors'; 
+import sequelize from "./config/database.js"; 
+import './models/associations.js';
 
 
 // importando os modelos para a sicronização do banco de dados
-import User from "./models/User.js"; // importando o modelo User que está em User.js, nesse arquivo User que estamos importando foi o modelo de tabela criado anteriormente. Aqui nós vamos utilizar para definir a relação entre usuário e projeto.
-import Test from "./models/Test.js"; // importando o modelo Test que está em Test.js, nesse arquivo Test que estamos importando foi o modelo de tabela criado anteriormente. Aqui nós vamos utilizar para definir a relação entre teste e projeto.
-import Team from "./models/Team.js"; // importando o modelo Team que está em Team.js, nesse arquivo Team que estamos importando foi o modelo de tabela criado anteriormente. Aqui nós vamos utilizar para definir a relação entre equipe e projeto.
+import User from "./models/user.js";
+import Test from "./models/Test.js";
+import Team from "./models/Team.js";
 import Security from "./models/Security.js";
-import Project from "./models/project.js"
+import Project from "./models/Project.js"  // Fix capitalization
 import Environment from "./models/Environment.js";
 import Documentation from "./models/Documentation.js";
 import AdditionalInfo from "./models/AdditionalInfo.js";
 
 // Importando as rotas
+import authRoutes from "./routes/auth.js"; 
 import userRoutes from "./routes/users.js";
 import projectRoutes from "./routes/projects.js";
 

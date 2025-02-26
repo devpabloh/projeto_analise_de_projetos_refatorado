@@ -1,5 +1,5 @@
 import express from "express";
-import User from "../models/User.js";
+import User from "../models/user.js";
 
 const router = express.Router(); // Estamos criando uma variavel router que vai receber um novo objeto express.Router(), que serve para criar rotas.
 

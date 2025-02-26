@@ -1,13 +1,20 @@
 import {useState} from 'react'
 import axios from 'axios'
+import PropTypes from 'prop-types' 
 import styles from './Login.module.css'
 import logoAti from '../../assets/logoAti.png'
+import { useNavigate } from 'react-router-dom'
 
 
 function Login({onLogin}){
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState("")
+    const navigate = useNavigate()
+
+    const handleRegister = () => {
+        navigate('/register')
+    }
 
     const handleLogin = async (event)=>{
         event.preventDefault()
@@ -33,15 +40,15 @@ function Login({onLogin}){
 
     return(
         <div className={styles.containerGeral}>
-            
             <div className={styles.containerImagem}>
                 <img src={logoAti} alt="" />
             </div>
             <div className={styles.containerBackgroundLogin}>
                 <div className={styles.containerLogin}>
-                    <h2>Login</h2>
-                    {error && <p>{error}</p>}
+                   
+                    {error && <p className={styles.errorMessage}>{error}</p>}
                     <form className={styles.containerForm} onSubmit={handleLogin}>
+                        <h2>Login</h2>
                         <input
                             type="email"
                             placeholder="Email"
@@ -54,12 +61,26 @@ function Login({onLogin}){
                             value={password}
                             onChange={(event)=>setPassword(event.target.value)}
                         />
-                        <button type="submit">Entrar</button>
+                        <div className={styles.buttonContainer}>
+                            <button type="submit">Entrar</button>
+                            <button 
+                                type="button" 
+                                onClick={handleRegister}
+                                className={styles.registerButton}
+                            >
+                                Registrar
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     )
 }
+
+Login.propTypes = {
+    onLogin: PropTypes.func.isRequired
+}
+
 
 export default Login
