@@ -23,9 +23,9 @@ button:hover{
   transition: scale 0.5s ease-in-out;
 }
 
-input{
+input, select{
   border-radius: 8px;
-  padding: .5rem;
+  padding: .8rem;
   border: 1px solid var(--color-quaternary);
 }
 

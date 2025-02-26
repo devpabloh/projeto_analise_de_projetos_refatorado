@@ -47,13 +47,12 @@ function Dashboard({user, onLogout}){
         <div className={styles.dashboardContainer}>
             <Header/>
             <main className={styles.mainContent}>
-                <h1>Dashboard</h1>
-                <p>Bem vindo, {user.name}</p>
-
                 {user.role === 'admin' ? (
                     <p>Você é um administrador</p>
                 ) : (
                     <div className={styles.projectsSection}>
+                         <h1>Dashboard</h1>
+                         <p>Bem vindo, {user.name}</p>
                         <h1>Meus Projetos</h1>
                         <button 
                             onClick={openModal} 
