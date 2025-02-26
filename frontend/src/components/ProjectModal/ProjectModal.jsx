@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
 import styles from "./ProjectModal.module.css"
 import FieldsetGeneralInformation from "../FieldsetGeneralInformation";
+import FieldsetDevelopmentStatus from "../FieldsetDevelopmentStatus";
+import FieldsetTestingAndQuality from "../FieldsetTestingAndQuality";
 
 function ProjectModal({isOpen, isClose, onSave}){
     const [formData, setFormData] = useState({
@@ -9,6 +11,9 @@ function ProjectModal({isOpen, isClose, onSave}){
         responsibleFillingOut: "",
         responsibleContact: "",
         fillingDate: new Date().toISOString().split('T')[0],
+        developmentPhase: "",
+        carriedOutTests: "",
+        selectedTests: [],
     })
 
     const modalRef = useRef()
@@ -20,11 +25,11 @@ function ProjectModal({isOpen, isClose, onSave}){
     }
 
     const handleChange = (evento) => {
-        const { name, value } = evento.target;
+        const { name, value, type, checked } = evento.target;
         setFormData(prevData => ({
-            ...prevData,
-            [name]: value
-        }));
+        ...prevData,
+        [name]: type === 'checkbox' ? checked : value
+    }));
     };
 
     const handleSubmit = (evento)=>{
@@ -40,6 +45,14 @@ function ProjectModal({isOpen, isClose, onSave}){
                 <h2>Adicionar Project</h2>
                 <form onSubmit={handleSubmit}>
                     <FieldsetGeneralInformation
+                        formData={formData}
+                        onChange={handleChange}
+                    />
+                    <FieldsetDevelopmentStatus
+                        formData={formData}
+                        onChange={handleChange}
+                    />
+                    <FieldsetTestingAndQuality
                         formData={formData}
                         onChange={handleChange}
                     />
