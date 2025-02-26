@@ -46,22 +46,22 @@ const FieldsetDocumentation = ({formData, onChange})=>{
             {formData.technicalDocumentation === "disponivel" && (
                 <div>
                     <div>
-                        <label htmlFor="">Data da última atualização</label>
+                        <label htmlFor="updatingTechnicalDocumentation">Data da última atualização</label>
                         <input 
-                            id=""
-                            name=""
+                            id="updatingTechnicalDocumentation"
+                            name="updatingTechnicalDocumentation"
                             type="Date"
-                            value={formData.data}
+                            value={formData.updatingTechnicalDocumentation}
                             onChange={onChange}
                         />
                     </div>
                     <div>
-                        <label htmlFor=""></label>
+                        <label htmlFor="updateTechnicalVersion "></label>
                         <input 
                             type="text"
-                            name=""
-                            id=""
-                            value={formData.version}
+                            name="updateTechnicalVersion"
+                            id="updateTechnicalVersion"
+                            value={formData.updateTechnicalVersion}
                             onChange={onChange}
                             placeholder="Versão atual da documentação."
 
@@ -100,25 +100,24 @@ const FieldsetDocumentation = ({formData, onChange})=>{
             {formData.functionalDocumentation === "disponivel" && (
                 <div>
                     <div>
-                        <label htmlFor="">Data da última atualização</label>
+                        <label htmlFor="updatingFunctionalDocumentation">Data da última atualização</label>
                         <input 
-                            id=""
-                            name=""
+                            id="updatingFunctionalDocumentation"
+                            name="updatingFunctionalDocumentation"
                             type="Date"
-                            value={formData.data}
+                            value={formData.updatingFunctionalDocumentation}
                             onChange={onChange}
                         />
                     </div>
                     <div>
-                        <label htmlFor=""></label>
+                        <label htmlFor="updateFunctionalVersion"></label>
                         <input 
                             type="text"
-                            name=""
-                            id=""
-                            value={formData.version}
+                            name="updateFunctionalVersion"
+                            id="updateFunctionalVersion"
+                            value={formData.updateFunctionalVersion}
                             onChange={onChange}
                             placeholder="Versão atual da documentação."
-
                         />
                     </div>
                 </div>

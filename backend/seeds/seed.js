@@ -12,7 +12,7 @@ async function seed(){
 
     await User.bulkCreate([
       {name: 'administrador', email: "admin@exemple.com", password: passwordAdmin, role: 'admin'},
-      {name: 'comum', email: "comum@exemple.com", password: passwordCommon, role: 'common'}
+      {name: 'comum', email: "  ", password: passwordCommon, role: 'common'}
     ])
     console.log("Seed concluído!")
     process.exit()
