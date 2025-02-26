@@ -27,6 +27,7 @@ function ProjectModal({isOpen, isClose, onSave}){
         productionEnvironment: "",
         deploymentEnvironmentNotes: "",
         hasDocumentation: "",
+        documentationType: "",
         technicalDocumentation: "",
         linkTechnicalDocumentation: "",
         updatingTechnicalDocumentation: "",
@@ -48,7 +49,7 @@ function ProjectModal({isOpen, isClose, onSave}){
         otherCompliance: "",
         challengesFaced: "",
         identifiedRisks: "",
-        commentsAdditionals: ""
+        additionalComments: "",
     })
 
     const modalRef = useRef()
