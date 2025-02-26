@@ -33,6 +33,8 @@ const FieldsetTestingAndQuality = ({formData, onChange})=>{
 
     ]
 
+
+
     const handleTestChange = (evento) => {
         const { name, value, checked } = evento.target;
         const updatedTests = checked 
@@ -80,19 +82,50 @@ const FieldsetTestingAndQuality = ({formData, onChange})=>{
                                 </label>
                             </div>
                         ))}
+                    
                         {formData.selectedTests?.includes('outrosTestes') && (
                             <div>
-                                <label htmlFor="outrosTestesDescricao">Especifique outros testes:</label>
+                                <label htmlFor="otherTestsDescription">Quais são os outros testes</label>
                                 <input
                                     type="text"
-                                    id="outrosTestesDescricao"
-                                    name="outrosTestesDescricao"
-                                    value={formData.outrosTestesDescricao || ''}
+                                    id="otherTestsDescription"
+                                    name="otherTestsDescription"
+                                    value={formData.otherTestsDescription || ''}
                                     onChange={onChange}
                                 />
                             </div>
                         )}
+                        {formData.carriedOutTests === "sim" && (
+                            <div>
+                                <label htmlFor="frequencyAndAutomation">Testes executados de forma</label>
+                                <select 
+                                    name="frequencyAndAutomation" 
+                                    id="frequencyAndAutomation"
+                                    value={formData.frequencyAndAutomation}
+                                    onChange={onChange}
+                                >
+                                    <option value="">Selecione uma opção</option>
+                                    <option value="continua">Contínua</option>
+                                    <option value="automatizada">Automatizada</option>
+                                    <option value="manual">Manual</option>
+                                </select>
+                            </div>
+                        )}
+                        {formData.carriedOutTests === "sim" && (
+                        <div>
+                            <label htmlFor="testingToolsUsed">Ferramentas utilizadas</label>
+                            <input
+                                type="text"
+                                id="testingToolsUsed"
+                                name="testingToolsUsed"
+                                placeholder="Ex: Jest, Mocha, JUnit, Selenium, Cypress, Postman, SonarQube, JMeter, K6"
+                                value={formData.testingToolsUsed}
+                                onChange={onChange}
+                            />
+                        </div>
+                        )}
                     </fieldset>
+                    
                 )}
 
             </div>

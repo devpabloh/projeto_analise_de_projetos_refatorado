@@ -1,0 +1,130 @@
+const FieldsetDocumentation = ({formData, onChange})=>{
+
+    return(
+        <fieldset>
+            <legend>Documentação</legend>
+            <div>
+                <label htmlFor="hasDocumentation">Tem documentação</label>
+                <select 
+                    name="hasDocumentation" 
+                    id="hasDocumentation"
+                    value={formData.hasDocumentation}
+                    onChange={onChange}
+                >
+                    <option value="">Selecione uma opção</option>
+                    <option value="sim">Sim</option>
+                    <option value="nao">Não</option>
+                </select>
+            </div>
+            {formData.hasDocumentation === "sim" && (
+                <div>
+                    <label htmlFor="technicalDocumentation">Documentação técnica</label>
+                    <select 
+                        name="technicalDocumentation" 
+                        id="technicalDocumentation"
+                        value={formData.technicalDocumentation}
+                        onChange={onChange}
+                    >
+                        <option value="">Selecione uma opção</option>
+                        <option value="disponivel">Disponível</option>
+                        <option value="emDesenvolvimento">Em Desenvolvimento</option>
+                    </select>
+                </div>
+            )}
+            {formData.technicalDocumentation === "disponivel" && (
+                <div>
+                    <label htmlFor="linkTechnicalDocumentation">Local/Link da documentação técnica</label>
+                    <input 
+                        type="text" 
+                        id="linkTechnicalDocumentation"
+                        value={formData.linkTechnicalDocumentation}
+                        onChange={onChange}
+                        placeholder="Campo para informar onde a documentação pode ser acessada."
+                    />
+                </div>
+            )}
+            {formData.technicalDocumentation === "disponivel" && (
+                <div>
+                    <div>
+                        <label htmlFor="">Data da última atualização</label>
+                        <input 
+                            id=""
+                            name=""
+                            type="Date"
+                            value={formData.data}
+                            onChange={onChange}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor=""></label>
+                        <input 
+                            type="text"
+                            name=""
+                            id=""
+                            value={formData.version}
+                            onChange={onChange}
+                            placeholder="Versão atual da documentação."
+
+                        />
+                    </div>
+                </div>
+            )}
+            {formData.hasDocumentation === "sim" && (
+                <div>
+                    <label htmlFor="functionalDocumentation">Documentação funcional</label>
+                    <select 
+                        name="functionalDocumentation" 
+                        id="functionalDocumentation"
+                        value={formData.functionalDocumentation
+                        }
+                        onChange={onChange}
+                    >
+                        <option value="">Selecione uma opção</option>
+                        <option value="disponivel">Disponível</option>
+                        <option value="emDesenvolvimento">Em Desenvolvimento</option>
+                    </select>
+                </div>
+            )}
+            {formData.functionalDocumentation === "disponivel" && (
+                <div>
+                    <label htmlFor="linkFunctionalDocumentation">Local/Link da documentação funcional</label>
+                    <input 
+                        type="text" 
+                        id="linkFunctionalDocumentation"
+                        value={formData.linkFunctionalDocumentation}
+                        onChange={onChange}
+                        placeholder="Campo para referência."
+                    />
+                </div>
+            )}
+            {formData.functionalDocumentation === "disponivel" && (
+                <div>
+                    <div>
+                        <label htmlFor="">Data da última atualização</label>
+                        <input 
+                            id=""
+                            name=""
+                            type="Date"
+                            value={formData.data}
+                            onChange={onChange}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor=""></label>
+                        <input 
+                            type="text"
+                            name=""
+                            id=""
+                            value={formData.version}
+                            onChange={onChange}
+                            placeholder="Versão atual da documentação."
+
+                        />
+                    </div>
+                </div>
+            )}
+        </fieldset>
+    )
+}
+
+export default FieldsetDocumentation

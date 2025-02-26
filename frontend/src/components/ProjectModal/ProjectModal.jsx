@@ -3,6 +3,8 @@ import styles from "./ProjectModal.module.css"
 import FieldsetGeneralInformation from "../FieldsetGeneralInformation";
 import FieldsetDevelopmentStatus from "../FieldsetDevelopmentStatus";
 import FieldsetTestingAndQuality from "../FieldsetTestingAndQuality";
+import FieldsetDeploymentEnvironment from "../FieldsetDeploymentEnvironment";
+import FieldsetDocumentation from "../FieldsetDocumentation";
 
 function ProjectModal({isOpen, isClose, onSave}){
     const [formData, setFormData] = useState({
@@ -53,6 +55,14 @@ function ProjectModal({isOpen, isClose, onSave}){
                         onChange={handleChange}
                     />
                     <FieldsetTestingAndQuality
+                        formData={formData}
+                        onChange={handleChange}
+                    />
+                    <FieldsetDeploymentEnvironment
+                        formData={formData}
+                        onChange={handleChange}
+                    />
+                    <FieldsetDocumentation
                         formData={formData}
                         onChange={handleChange}
                     />
