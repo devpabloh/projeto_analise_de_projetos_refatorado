@@ -12,8 +12,13 @@ export async function createProject(requisicao, resposta) {
         console.log('Received data:', requisicao.body);
         console.log('User ID:', userId);
         
-        const { name, description, phase, startDate, deadLine } = requisicao.body;
-        const project = await Project.create({ name, description, phase, startDate, deadLine, userId });
+        // Recebe todos os campos do formulário
+        const projectData = {
+            ...requisicao.body,  // Inclui todos os campos do formulário
+            userId               // Adiciona o userId
+        };
+        
+        const project = await Project.create(projectData);
         resposta.status(201).json(project);
     } catch (error) {
         console.error('Error creating project:', error);

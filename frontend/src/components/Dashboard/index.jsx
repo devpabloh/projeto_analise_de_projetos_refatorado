@@ -43,9 +43,10 @@ function Dashboard({ user, onLogout }) {
             onLogout();
             return;
         }
-
         try {
-            await axios.post(
+            console.log("Enviando dados do projeto:", projectData);
+            
+            const response = await axios.post(
                 "http://localhost:3000/analiseDeProjetos/projects",
                 projectData,
                 {
@@ -55,15 +56,34 @@ function Dashboard({ user, onLogout }) {
                     }
                 }
             );
+            console.log("Resposta do servidor:", response.data);
             await fetchProjects();
             setModalOpen(false);
         } catch (error) {
             console.error("Full error:", error);
-            if (error.response?.status === 401) {
-                alert("Sessão expirada. Por favor, faça login novamente.");
-                onLogout();
+            
+            if (error.response) {
+                // O servidor respondeu com um código de erro
+                console.error("Resposta de erro:", {
+                    data: error.response.data,
+                    status: error.response.status,
+                    headers: error.response.headers
+                });
+                
+                if (error.response.status === 401) {
+                    alert("Sessão expirada. Por favor, faça login novamente.");
+                    onLogout();
+                } else {
+                    alert(`Erro ao salvar projeto: ${error.response?.data?.message || error.response?.data?.error || 'Erro no servidor'}`);
+                }
+            } else if (error.request) {
+                // A requisição foi feita mas não houve resposta
+                console.error("Sem resposta do servidor:", error.request);
+                alert("Erro de conexão com o servidor. Verifique se o backend está rodando.");
             } else {
-                alert(`Erro ao salvar projeto: ${error.response?.data?.error || 'Erro desconhecido'}`);
+                // Algo aconteceu na configuração da requisição
+                console.error("Erro na configuração da requisição:", error.message);
+                alert(`Erro ao configurar requisição: ${error.message}`);
             }
         }
     }, [fetchProjects, onLogout]);
