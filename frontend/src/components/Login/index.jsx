@@ -45,7 +45,6 @@ function Login({onLogin}){
             </div>
             <div className={styles.containerBackgroundLogin}>
                 <div className={styles.containerLogin}>
-                   
                     {error && <p className={styles.errorMessage}>{error}</p>}
                     <form className={styles.containerForm} onSubmit={handleLogin}>
                         <h2>Login</h2>

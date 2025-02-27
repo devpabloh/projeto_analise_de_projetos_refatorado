@@ -5,6 +5,7 @@
 
 .containerLogin h1{
   color: var(--color-secondary);
+  text-align: center;
 }
 
 button{

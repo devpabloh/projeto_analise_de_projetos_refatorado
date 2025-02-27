@@ -1,22 +1,19 @@
 import './App.css';
 import { useEffect, useState } from "react"
-import { BrowserRouter } from 'react-router-dom'  // Add this import
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from "./components/Login"
+import Register from "./components/Register"
 import Dashboard from './components/Dashboard';
-import Footer from './components/Footer';
-import Header from './components/Header';
 
 function App() {
   const [user, setUser] = useState(null)
 
-  const handleLogout =()=>{
+  const handleLogout = () => {
     setUser(null)
   }
 
-  useEffect(()=>{
-    // verifica se o usuario esta logado, através dos dados armazenados no localStorage
+  useEffect(() => {
     const storedUser = localStorage.getItem("user")
-    // Se o usuario estiver logado, armazena os dados no estado
     if(storedUser){
       setUser(JSON.parse(storedUser))
     }
@@ -24,14 +21,19 @@ function App() {
 
   return (
     <BrowserRouter>
-      {!user ? (
-        <div className='containerLogin'>
-          <h1>Bem-vindo ao Sistema de Gestão de Projetos</h1>
-          <Login onLogin={setUser} />
-        </div>
-      ) : (
-        <Dashboard user={user} onLogout={handleLogout}/>
-      )}
+      <Routes>
+        <Route path="/" element={
+          !user ? (
+            <div className='containerLogin'>
+              <h1>Bem-vindo ao Sistema de Gestão de Projetos</h1>
+              <Login onLogin={setUser} />
+            </div>
+          ) : (
+            <Dashboard user={user} onLogout={handleLogout}/>
+          )
+        } />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </BrowserRouter>
   )
 }

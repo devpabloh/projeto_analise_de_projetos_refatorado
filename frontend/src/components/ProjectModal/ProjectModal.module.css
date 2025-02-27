@@ -62,15 +62,18 @@
 
 .containerButtons{
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width
-
+    flex-direction: row;
 }
 
-.buttonModal{
-    width: 41%;
+.containerButtons button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
 
+.containerButtons button:hover {
+    scale: none;
 }
 
 .containerTitles{
