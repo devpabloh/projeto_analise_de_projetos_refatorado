@@ -1,14 +1,12 @@
-import { useState, useEffect, useCallback } from "react";  // Add useCallback
+import { useState, useEffect, useCallback } from "react"; 
 import axios from "axios";
 import ProjectModal from "../ProjectModal/ProjectModal";
 import Header from "../Header";
 import Footer from "../Footer";
 import styles from "./Dashboard.module.css";
 import PropTypes from 'prop-types';
-// Add these modal control functions
-    const openModal = useCallback(() => setModalOpen(true), []);
-    const closeModal = useCallback(() => setModalOpen(false), []);
-function Dashboard({user, onLogout}){
+
+function Dashboard({ user, onLogout }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -19,7 +17,7 @@ function Dashboard({user, onLogout}){
             onLogout();
             return;
         }
-        
+
         try {
             const response = await axios.get("http://localhost:3000/analiseDeProjetos/projects", {
                 headers: {
@@ -73,12 +71,14 @@ function Dashboard({user, onLogout}){
     useEffect(() => {
         fetchProjects();
     }, [fetchProjects]);
-// Move these inside the component function
-const openModal = useCallback(() => setModalOpen(true), []);
-const closeModal = useCallback(() => setModalOpen(false), []);
-    return(
+
+    // Move these inside the component function
+    const openModal = useCallback(() => setModalOpen(true), []);
+    const closeModal = useCallback(() => setModalOpen(false), []);
+
+    return (
         <div className={styles.dashboardContainer}>
-            <Header user={user} onLogout={onLogout}/>
+            <Header user={user} onLogout={onLogout} />
             <main className={styles.mainContent}>
                 {user.role === 'admin' ? (
                     <p>Você é um administrador</p>
@@ -119,9 +119,9 @@ const closeModal = useCallback(() => setModalOpen(false), []);
                     </div>
                 )}
             </main>
-            <Footer/>
+            <Footer />
         </div>
-    )
+    );
 }
 
 Dashboard.propTypes = {
@@ -133,4 +133,4 @@ Dashboard.propTypes = {
     onLogout: PropTypes.func.isRequired
 };
 
-export default Dashboard
+export default Dashboard;

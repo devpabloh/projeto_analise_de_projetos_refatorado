@@ -35,7 +35,7 @@ export async function createProject(requisicao, resposta){
  * - Se for um usuário comum, lista somente os projetos que pertencem a ele.
  */
 
-async function listProjects(requisicao, resposta) {
+export async function listProjects(requisicao, resposta) {
     try {
         let projects;
         if (requisicao.user.role === 'admin') {
