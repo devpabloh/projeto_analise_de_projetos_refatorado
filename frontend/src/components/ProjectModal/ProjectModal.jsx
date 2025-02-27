@@ -8,6 +8,7 @@ import FieldsetDocumentation from "../FieldsetDocumentation";
 import FieldsetTeamAndSupport from "../FieldsetTeamAndSupport";
 import FieldsetSecurityAndCompliance from "../FieldsetSecurityAndCompliance";
 import FieldsetOtherConsiderations from "../FieldsetOtherConsiderations";
+import PropTypes from 'prop-types';
 
 function ProjectModal({isOpen, isClose, onSave}){
     const [formData, setFormData] = useState({
@@ -128,5 +129,9 @@ function ProjectModal({isOpen, isClose, onSave}){
         </div>  
     )
 }
-
+ProjectModal.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    isClose: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired
+};
 export default ProjectModal;

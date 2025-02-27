@@ -9,6 +9,8 @@ export async function register(requisicao, resposta){
         // verifica se o usuario existe, se já existe retorna um status 400 com a mensagem "O usuário já existe."
         const existingUser = await User.findOne({where: {email}})
 
+        console.log('Tentando login com:', { email });
+
         if(existingUser){
             return resposta.status(400).json({message: "O usuário já existe."})
         }
@@ -56,17 +58,21 @@ export async function login(requisicao, resposta){
             return resposta.status(401).json({message: "Senha inválida"})
         }
         console.log('7. Gerando token com:', { id: user.id, role: user.role });
+        console.log('JWT_SECRET exists:', !!process.env.JWT_SECRET);
 
         // Gerar o token, que serve para autenticar o usuário
         const token = jwt.sign(
             {id: user.id, role: user.role},
             process.env.JWT_SECRET,
-            {expiresIn: "1h"}
+            {expiresIn: "24h"}
         )
+
+        console.log('Token gerado com sucesso');
         console.log('8. Token gerado com sucesso');
         resposta.json({token, user: {id: user.id, name: user.name, role: user.role}})
 
     } catch (error) {
+        console.error('Erro detalhado:', error);
         resposta.status(500).json({error: error.message})
     }
 }

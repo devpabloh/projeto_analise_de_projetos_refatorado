@@ -2,8 +2,15 @@ import {Sequelize} from 'sequelize' // importando sequelize que serve para traba
 
 // aqui estamos criando uma variavel sequalize que vai receber um novo objeto sequalize
 const sequelize = new Sequelize('analiseDeProjetos', 'postgres', '@Tais84671514', {
-    host: 'localhost', // especificando o host do banco de dados, host é o computador que vai rodar o banco de dados
-    dialect: 'postgres' // especificando o banco de dados que vai ser usado
-})
+    host: 'localhost',
+    dialect: 'postgres',
+    logging: false, // Add this to reduce console noise
+    pool: {         // Add connection pool settings
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+    }
+});
 
 export default sequelize

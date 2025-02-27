@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const FieldsetTestingAndQuality = ({formData, onChange})=>{
     const typesOfTests = [
         {
@@ -133,4 +135,15 @@ const FieldsetTestingAndQuality = ({formData, onChange})=>{
     )
 }
 
+// Add PropTypes at the end of the file
+FieldsetTestingAndQuality.propTypes = {
+    formData: PropTypes.shape({
+        carriedOutTests: PropTypes.string,
+        selectedTests: PropTypes.arrayOf(PropTypes.string),
+        otherTestsDescription: PropTypes.string,
+        frequencyAndAutomation: PropTypes.string,
+        testingToolsUsed: PropTypes.string
+    }).isRequired,
+    onChange: PropTypes.func.isRequired
+};
 export default FieldsetTestingAndQuality;

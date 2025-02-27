@@ -1,3 +1,5 @@
+import PropTypes from "prop-types"
+
 const FieldsetGeneralInformation = ({formData, onChange})=>{
     return(
         <fieldset>
@@ -7,6 +9,7 @@ const FieldsetGeneralInformation = ({formData, onChange})=>{
                 <input 
                     type="text" 
                     id="projectName"
+                    name="projectName"
                     value={formData.projectName}
                     onChange={onChange}
                 />
@@ -15,6 +18,7 @@ const FieldsetGeneralInformation = ({formData, onChange})=>{
                 <label htmlFor="projectDescription">Descrição Resumida</label>
                 <textarea
                     id="projectDescription"
+                    name="projectDescription"
                     value={formData.projectDescription}
                     onChange={onChange}
                 ></textarea>
@@ -53,5 +57,16 @@ const FieldsetGeneralInformation = ({formData, onChange})=>{
         </fieldset>
     )
 }
+
+FieldsetGeneralInformation.propTypes = {
+    formData: PropTypes.shape({
+        projectName: PropTypes.string,
+        projectDescription: PropTypes.string,
+        responsibleFillingOut: PropTypes.string,
+        responsibleContact: PropTypes.string,
+        fillingDate: PropTypes.string
+    }).isRequired,
+    onChange: PropTypes.func.isRequired
+};
 
 export default FieldsetGeneralInformation

@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const FieldsetDocumentation = ({formData, onChange})=>{
 
     return(
@@ -37,6 +39,7 @@ const FieldsetDocumentation = ({formData, onChange})=>{
                     <input 
                         type="text" 
                         id="linkTechnicalDocumentation"
+                        name="linkTechnicalDocumentation"
                         value={formData.linkTechnicalDocumentation}
                         onChange={onChange}
                         placeholder="Campo para informar onde a documentação pode ser acessada."
@@ -91,6 +94,7 @@ const FieldsetDocumentation = ({formData, onChange})=>{
                     <input 
                         type="text" 
                         id="linkFunctionalDocumentation"
+                        name="linkFunctionalDocumentation"
                         value={formData.linkFunctionalDocumentation}
                         onChange={onChange}
                         placeholder="Campo para referência."
@@ -125,5 +129,20 @@ const FieldsetDocumentation = ({formData, onChange})=>{
         </fieldset>
     )
 }
+
+FieldsetDocumentation.propTypes = {
+    formData: PropTypes.shape({
+        hasDocumentation: PropTypes.string,
+        technicalDocumentation: PropTypes.string,
+        linkTechnicalDocumentation: PropTypes.string,
+        updatingTechnicalDocumentation: PropTypes.string,
+        updateTechnicalVersion: PropTypes.string,
+        functionalDocumentation: PropTypes.string,
+        linkFunctionalDocumentation: PropTypes.string,
+        updatingFunctionalDocumentation: PropTypes.string,
+        updateFunctionalVersion: PropTypes.string
+    }).isRequired,
+    onChange: PropTypes.func.isRequired
+};
 
 export default FieldsetDocumentation

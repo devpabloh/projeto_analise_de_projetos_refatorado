@@ -1,4 +1,4 @@
-import Project from "../models/project.js"
+import Project from "../models/Project.js"
 
 /* 
     Função que cria um novo projeto.
@@ -10,6 +10,9 @@ export async function createProject(requisicao, resposta){
     try{
          // Obtém o id do usuário autenticado (definido pelo middleware de autenticação)
         const userId = requisicao.user.id
+
+        console.log('Received data:', requisicao.body);
+        console.log('User ID:', userId);
         
         // Desestrutura os dados do corpo da requisição
         const {name, description, phase, startDate, deadLine} = requisicao.body
@@ -20,6 +23,7 @@ export async function createProject(requisicao, resposta){
         // Retorna o projeto criado com status 201 (Created)
         resposta.status(201).json(project)
     }catch(error){
+        console.error('Error creating project:', error);
         // Em caso de erro, retorna status 500 com a mensagem de erro
         resposta.status(500).json({error: error.message})
     }
@@ -31,20 +35,26 @@ export async function createProject(requisicao, resposta){
  * - Se for um usuário comum, lista somente os projetos que pertencem a ele.
  */
 
-export async function listProjects(requisicao, resposta){
-    try{
-        // a variavel projects vai receber um novo objeto Project.findAll(), caso seja um admin, ele vai receber todos os projetos, caso seja um comum, ele vai receber os projetos que ele criou
-        let projects 
-
-        if(requisicao.user.id === 'admin'){
-            // Administrador: acesso a todos os projetos
-            projects = await Project.findAll();
-        }else {
-             // Usuário comum: filtra os projetos pelo seu próprio id
-            projects = await Project.findAll({where: {userId: requisicao.user.id}})
+async function listProjects(requisicao, resposta) {
+    try {
+        let projects;
+        if (requisicao.user.role === 'admin') {
+            projects = await Project.findAll({
+                include: ['user'] // Include user information
+            });
+        } else {
+            projects = await Project.findAll({
+                where: { userId: requisicao.user.id },
+                include: ['user']
+            });
         }
-    }catch(error){
-        res.status(500).json({ error: error.message });
+        return resposta.json(projects);
+    } catch (error) {
+        console.error('Error in listProjects:', error);
+        return resposta.status(500).json({ 
+            error: 'Erro ao listar projetos',
+            details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
     }
 }
 

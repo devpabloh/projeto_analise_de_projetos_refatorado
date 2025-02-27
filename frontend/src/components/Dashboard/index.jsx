@@ -1,41 +1,81 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";  // Add useCallback
 import axios from "axios";
 import ProjectModal from "../ProjectModal/ProjectModal";
 import Header from "../Header";
 import Footer from "../Footer";
 import styles from "./Dashboard.module.css";
-
+import PropTypes from 'prop-types';
+// Add these modal control functions
+    const openModal = useCallback(() => setModalOpen(true), []);
+    const closeModal = useCallback(() => setModalOpen(false), []);
 function Dashboard({user, onLogout}){
     const [modalOpen, setModalOpen] = useState(false);
     const [projects, setProjects] = useState([]);
-    const token = localStorage.getItem('token');
+    const [loading, setLoading] = useState(true);
 
-    // Configurações modal
-
-    // Abrir modal
-    const openModal = ()=> setModalOpen(true);
-    // fechar modal
-    const closeModal = ()=> setModalOpen(false);
-
-    // Função chamada ao salvar um novo projeto no modal
-    const handleSaveProject = async (projectData)=>{
+    const fetchProjects = useCallback(async () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            onLogout();
+            return;
+        }
+        
         try {
-            const resposta = await axios.post("http://localhost:3000/analiseDeProjetos/projects",
-                projectData, {
+            const response = await axios.get("http://localhost:3000/analiseDeProjetos/projects", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            setProjects(response.data);
+        } catch (error) {
+            console.error("Error fetching projects:", error);
+            if (error.response?.status === 401) {
+                alert("Sessão expirada. Por favor, faça login novamente.");
+                onLogout();
+            }
+        } finally {
+            setLoading(false);
+        }
+    }, [onLogout]);
+
+    const handleSaveProject = useCallback(async (projectData) => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert("Sessão expirada. Por favor, faça login novamente.");
+            onLogout();
+            return;
+        }
+
+        try {
+            await axios.post(
+                "http://localhost:3000/analiseDeProjetos/projects",
+                projectData,
+                {
                     headers: {
                         Authorization: `Bearer ${token}`,
-                    },
+                        'Content-Type': 'application/json'
+                    }
                 }
-            )
-            // Atualiza a lista, adicionando o novo projeto
-            setProjects([...projects, resposta.data])
-            closeModal()
+            );
+            await fetchProjects();
+            setModalOpen(false);
         } catch (error) {
-            console.error("Erro ao buscar projetos:", error);
+            console.error("Full error:", error);
+            if (error.response?.status === 401) {
+                alert("Sessão expirada. Por favor, faça login novamente.");
+                onLogout();
+            } else {
+                alert(`Erro ao salvar projeto: ${error.response?.data?.error || 'Erro desconhecido'}`);
+            }
         }
-    }
+    }, [fetchProjects, onLogout]);
 
-
+    useEffect(() => {
+        fetchProjects();
+    }, [fetchProjects]);
+// Move these inside the component function
+const openModal = useCallback(() => setModalOpen(true), []);
+const closeModal = useCallback(() => setModalOpen(false), []);
     return(
         <div className={styles.dashboardContainer}>
             <Header user={user} onLogout={onLogout}/>
@@ -53,13 +93,24 @@ function Dashboard({user, onLogout}){
                         >
                             Adicionar Projeto
                         </button>
-                        <ul className={styles.projectsList}> 
-                            {projects.map((project) => (
-                                <li key={project.id} className={styles.projectItem}>
-                                    <strong>{project.name}</strong> - {project.phase}
-                                </li>
-                            ))}
-                        </ul>
+                        {loading ? (
+                            <p>Carregando projetos...</p>
+                        ) : (
+                            <ul className={styles.projectsList}> 
+                                {projects.length === 0 ? (
+                                    <p>Nenhum projeto encontrado.</p>
+                                ) : (
+                                    projects.map((project) => (
+                                        <li key={project.id} className={styles.projectItem}>
+                                            <h3>{project.projectName}</h3>
+                                            <p><strong>Fase:</strong> {project.developmentPhase}</p>
+                                            <p><strong>Descrição:</strong> {project.projectDescription}</p>
+                                            <p><strong>Responsável:</strong> {project.responsibleFillingOut}</p>
+                                        </li>
+                                    ))
+                                )}
+                            </ul>
+                        )}
                         <ProjectModal
                             isOpen={modalOpen}
                             isClose={closeModal}
@@ -72,5 +123,14 @@ function Dashboard({user, onLogout}){
         </div>
     )
 }
+
+Dashboard.propTypes = {
+    user: PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string.isRequired,
+        role: PropTypes.string.isRequired
+    }).isRequired,
+    onLogout: PropTypes.func.isRequired
+};
 
 export default Dashboard

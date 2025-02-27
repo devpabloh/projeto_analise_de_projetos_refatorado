@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const FieldsetSecurityAndCompliance = ({formData, onChange})=>{
     return (
         <fieldset>
@@ -39,6 +41,7 @@ const FieldsetSecurityAndCompliance = ({formData, onChange})=>{
                     <input
                         type="text"
                         id="otherSecurityMeasures"
+                        name="otherSecurityMeasures"
                         value={formData.otherSecurityMeasures}
                         onChange={onChange}
                         placeholder="Quais são as outras medidas de segurança."
@@ -81,6 +84,7 @@ const FieldsetSecurityAndCompliance = ({formData, onChange})=>{
                         <input
                             type="text"
                             id="otherCompliance"
+                            name="otherCompliance"
                             value={formData.otherCompliance}
                             onChange={onChange}
                             placeholder="Quais são as outras normas de conformidade."
@@ -90,5 +94,17 @@ const FieldsetSecurityAndCompliance = ({formData, onChange})=>{
         </fieldset>
     )
 }
+
+FieldsetSecurityAndCompliance.propTypes = {
+    formData: PropTypes.shape({
+        securityMeasures: PropTypes.string,
+        whatSecurityMeasures: PropTypes.string,
+        otherSecurityMeasures: PropTypes.string,
+        compliance: PropTypes.string,
+        whatCompliance: PropTypes.string,
+        otherCompliance: PropTypes.string
+    }).isRequired,
+    onChange: PropTypes.func.isRequired
+};
 
 export default FieldsetSecurityAndCompliance

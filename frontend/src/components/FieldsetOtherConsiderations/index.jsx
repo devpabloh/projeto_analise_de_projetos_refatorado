@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const FieldsetOtherConsiderations = ({formData, onChange})=>{
     return (
         <fieldset>
@@ -35,5 +37,14 @@ const FieldsetOtherConsiderations = ({formData, onChange})=>{
         </fieldset>
     )
 }
+
+FieldsetOtherConsiderations.propTypes = {
+    formData: PropTypes.shape({
+        challenges: PropTypes.string,
+        identifiedRisks: PropTypes.string,
+        commentsAdditionals: PropTypes.string
+    }).isRequired,
+    onChange: PropTypes.func.isRequired
+};
 
 export default FieldsetOtherConsiderations;

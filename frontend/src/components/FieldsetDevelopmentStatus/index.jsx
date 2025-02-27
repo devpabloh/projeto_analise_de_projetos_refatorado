@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const FieldsetDevelopmentStatus = ({formData, onChange}) =>{
     const developmentPhases = [
         { id: 1, value: "planegamento", label: "Planejamento"},
@@ -26,5 +28,12 @@ const FieldsetDevelopmentStatus = ({formData, onChange}) =>{
         </fieldset>
     )
 }
+
+FieldsetDevelopmentStatus.propTypes = {
+    formData: PropTypes.shape({
+        developmentPhase: PropTypes.string
+    }).isRequired,
+    onChange: PropTypes.func.isRequired
+};
 
 export default FieldsetDevelopmentStatus

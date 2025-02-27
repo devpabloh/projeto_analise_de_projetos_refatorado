@@ -1,23 +1,18 @@
+console.log('Ambiente carregado:', {
+    hasJwtSecret: !!process.env.JWT_SECRET,
+    hasSecretKey: !!process.env.SECRET_KEY
+});
+
 
 import dotenv from 'dotenv'; // importando o dotenv que serve para carregar as variaveis de ambiente
 dotenv.config() // carregando as variaveis de ambiente
+import { errorHandler } from './middlewares/errorHandler.js';
 
 import express from "express"; 
 import bodyParser from "body-parser"; 
 import cors from 'cors'; 
 import sequelize from "./config/database.js"; 
 import './models/associations.js';
-
-
-// importando os modelos para a sicronização do banco de dados
-import User from "./models/user.js";
-import Test from "./models/Test.js";
-import Team from "./models/Team.js";
-import Security from "./models/Security.js";
-import Project from "./models/Project.js"  // Fix capitalization
-import Environment from "./models/Environment.js";
-import Documentation from "./models/Documentation.js";
-import AdditionalInfo from "./models/AdditionalInfo.js";
 
 // Importando as rotas
 import authRoutes from "./routes/auth.js"; 
@@ -34,6 +29,7 @@ app.use(cors()); // aqui estamos usando o cors() que é um middleware que permit
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true })); // aqui estamos usando o bodyParser.urlencoded() que é um middleware que permite que o servidor receba dados no formato x-www-form-urlencoded
 app.use(bodyParser.json()); // aqui estamos usando o bodyParser.json() que é um middleware que permite que o servidor receba dados no formato JSON
+app.use(errorHandler);
 
 // Rotas
 app.use('/analiseDeProjetos/auth', authRoutes); // estamos utilizando o app.use() que é um middleware que permite que o servidor aceite requisicoes de qualquer origem, authRoutes é a rota que estamos utilizando para o modelo de tabela User

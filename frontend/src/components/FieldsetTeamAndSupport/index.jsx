@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const FieldsetTeamAndSupport = ({formData, onChange})=>{
 
     return(
@@ -70,5 +72,16 @@ const FieldsetTeamAndSupport = ({formData, onChange})=>{
         </fieldset>
     )
 }
+
+FieldsetTeamAndSupport.propTypes = {
+    formData: PropTypes.shape({
+        technicalLeaderName: PropTypes.string,
+        projectManagerName: PropTypes.string,
+        technicalSupport: PropTypes.string,
+        supportName: PropTypes.string,
+        supportPeriod: PropTypes.string
+    }).isRequired,
+    onChange: PropTypes.func.isRequired
+};
 
 export default FieldsetTeamAndSupport

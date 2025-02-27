@@ -1,10 +1,9 @@
 import {useState} from 'react'
-import axios from 'axios'
 import PropTypes from 'prop-types' 
 import styles from './Login.module.css'
 import logoAti from '../../assets/logoAti.png'
 import { useNavigate } from 'react-router-dom'
-
+import api from '../../services/api';
 
 function Login({onLogin}){
     const [email, setEmail] = useState('')
@@ -16,28 +15,21 @@ function Login({onLogin}){
         navigate('/register')
     }
 
-    const handleLogin = async (event)=>{
-        event.preventDefault()
+    // Update handleLogin
+    const handleLogin = async (event) => {
+        event.preventDefault();
         try {
-            // faz a requisição para o endpoint de login
-            const response = await axios.post("http://localhost:3000/analiseDeProjetos/auth/login", {
+            const response = await api.post("/auth/login", {
                 email,
                 password
-            })
-
-            // Armazena o token e os dados do usuário, por exemplo, no localStorage ou no estado global
-            localStorage.setItem("token", response.data.token)
-
-            // Se você receber o objeto usuário, pode armazená-lo também
+            });
+            localStorage.setItem("token", response.data.token);
             localStorage.setItem('user', JSON.stringify(response.data.user));
-
-            // // Callback para informar que o usuário está logado (por exemplo, redirecionar para dashboard)
             onLogin(response.data.user);
         } catch (err) {
             setError('Erro ao fazer login. Verifique suas credenciais.', err);
         }
-    }
-
+    };
     return(
         <div className={styles.containerGeral}>
             <div className={styles.containerImagem}>

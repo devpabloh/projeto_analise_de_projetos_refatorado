@@ -43,7 +43,23 @@ function Register() {
     const validatePassword = (password) => {
         return password.length >= 6
     }
-
+    // Fix the event.preventDefault call
+    const handleRegister = async (event) => {
+        event.preventDefault(); // Remove {onRegister}
+        try {
+            const response = await axios.post("http://localhost:3000/analiseDeProjetos/auth/register", {
+                name,
+                email, 
+                password
+            });
+            
+            if (response.data) {
+                navigate('/'); // Redirect to login after successful registration
+            }
+        } catch (err) {
+            setError(err.response?.data?.message || "Erro de registro, tente novamente.");
+        }
+    }
     const handleChange = (e) => {
         const { name, value } = e.target
         
