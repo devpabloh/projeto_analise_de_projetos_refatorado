@@ -10,13 +10,6 @@ function Dashboard({user, onLogout}){
     const [projects, setProjects] = useState([]);
     const token = localStorage.getItem('token');
 
-    const handleLogout = ()=>{
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
-
-        onLogout()
-    }
-
     // Configurações modal
 
     // Abrir modal
@@ -45,14 +38,14 @@ function Dashboard({user, onLogout}){
 
     return(
         <div className={styles.dashboardContainer}>
-            <Header/>
+            <Header user={user} onLogout={onLogout}/>
             <main className={styles.mainContent}>
                 {user.role === 'admin' ? (
                     <p>Você é um administrador</p>
                 ) : (
                     <div className={styles.projectsSection}>
-                         <h1>Dashboard</h1>
-                         <p>Bem vindo, {user.name}</p>
+                        <h1>Dashboard</h1>
+                        <p>Bem vindo, {user.name}</p>
                         <h1>Meus Projetos</h1>
                         <button 
                             onClick={openModal} 
