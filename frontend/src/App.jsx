@@ -19,7 +19,7 @@ function App() {
                         path="/dashboard" 
                         element={
                             user ? (
-                                <Dashboard 
+                                <Dashboard L
                                     user={user} 
                                     onLogout={() => setUser(null)} 
                                 />

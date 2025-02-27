@@ -24,13 +24,18 @@ function Login({ onLogin }) {
             });
             console.log("Resposta do servidor:", response.data); // Log da resposta
             localStorage.setItem("token", response.data.token);
+            console.log("Token salvo no localStorage:", localStorage.getItem("token")); // Verifica se o token foi salvo
             localStorage.setItem('user', JSON.stringify(response.data.user));
+            console.log("Usuário salvo no localStorage:", localStorage.getItem("user")); // Verifica se o usuário foi salvo
             onLogin(response.data.user);
+            console.log("onLogin chamado"); // Confirma que a prop foi executada
+            navigate('/dashboard'); // Redireciona para a página de dashboard
+            console.log("Redirecionando para /dashboard"); // Confirma o redirecionamento
         } catch (err) {
             setError('Erro ao fazer login. Verifique suas credenciais.');
             console.error("Erro ao fazer login:", err); // Log do erro
             if (err.response) {
-                console.error("Detalhes do erro:", err.response.data); // Log dos detalhes do erro
+                console.error("Detalhes do erro:", err.response.data); // Detalhes do erro, se houver
             }
         }
     };
