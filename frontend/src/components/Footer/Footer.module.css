@@ -21,6 +21,13 @@
 
 }
 
+@media (max-width: 768px){
+  .containerFooter img{
+    width: 100px;
+    margin-right: 1rem;
+  }
+}
+
 @media (max-width: 320px){
   .containerFooter img{
     width: 70px;

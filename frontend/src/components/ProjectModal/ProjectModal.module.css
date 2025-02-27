@@ -60,18 +60,17 @@
     border: 1px solid #0000005e;
 }
 
-.modalStyle button {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
+.containerButtons{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width
+
 }
 
-.modalStyle button:hover {
-    background-color: #0056b3;
+.buttonModal{
+    width: 41%;
+
 }
 
 .containerTitles{
@@ -93,7 +92,7 @@
 .containerInputCheck div {
     display: flex;
     align-items: center;
-    min-width: 200px; /* ou outro valor que preferir */
+    min-width: 200px; 
 }
 
 .outrosTestesArea {
@@ -108,4 +107,15 @@
     min-height: 80px;
     padding: 10px;
     border-radius: 10px;
+}
+
+@media (max-width: 720px) {
+    .modalStyle {
+        width: 85vw;
+        padding: 8px;
+    }
+    
+    .modalStyle fieldset {
+        padding: 8px;
+    }
 }

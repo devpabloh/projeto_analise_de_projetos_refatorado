@@ -113,9 +113,14 @@ function ProjectModal({isOpen, isClose, onSave}){
                             formData={formData}
                             onChange={handleChange}
                         />
-                        <button type="submit">
-                            Salvar Projeto
-                        </button>
+                        <div className={styles.containerButtons}>
+                            <button type="submit" className={styles.buttonModal}>
+                                Salvar
+                            </button>
+                            <button type="button" onClick={isClose} className={styles.buttonModal}>
+                                Cancelar
+                            </button>
+                        </div>
                     </form>
                 </fieldset>
                 
