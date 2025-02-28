@@ -8,13 +8,6 @@ if (result.error) {
     console.log('Arquivo .env carregado com sucesso');
 }
 
-console.log('Ambiente carregado:', {
-    hasJwtSecret: !!process.env.JWT_SECRET,
-    jwtSecretValue: process.env.JWT_SECRET || 'não definido',
-    hasSecretKey: !!process.env.SECRET_KEY,
-    secretKeyValue: process.env.SECRET_KEY || 'não definido'
-});
-
 // Resto do código...
 import { errorHandler } from './middlewares/errorHandler.js';
 import express from "express";
@@ -43,7 +36,6 @@ app.use('/analiseDeProjetos/projects', projectRoutes);
 
 sequelize.sync({ force: false })
     .then(() => {
-        console.log('Banco de dados sincronizado com sucesso');
         app.listen(PORT, () => {
             console.log(`O servidor está rodando na porta ${PORT}`);
         });

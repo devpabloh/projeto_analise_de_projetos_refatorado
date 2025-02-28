@@ -3,7 +3,7 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'; // Certifique-se de que Navigate está aqui
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Dashboard from './components/Dashboard';
+import DashboardLayout from "./components/DashboardLayout";
 import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
@@ -16,10 +16,10 @@ function App() {
                     <Route path="/" element={<Login onLogin={setUser} />} />
                     <Route path="/register" element={<Register />} />
                     <Route 
-                        path="/dashboard" 
+                        path="/dashboard/*" 
                         element={
                             user ? (
-                                <Dashboard L
+                                <DashboardLayout 
                                     user={user} 
                                     onLogout={() => setUser(null)} 
                                 />
