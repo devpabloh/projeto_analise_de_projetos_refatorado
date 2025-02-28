@@ -1,3 +1,93 @@
+import User from './user.js';
+import Project from './Project.js';
+import Test from './Test.js';
+import Environment from './Environment.js';
+import Documentation from './Documentation.js';
+import Team from './Team.js';
+import Security from './Security.js';
+import AdditionalInfo from './AdditionalInfo.js';
+
+// User <-> Project Association
+User.hasMany(Project, {
+    foreignKey: 'userId',
+    as: 'projects'
+});
+
+Project.belongsTo(User, {
+    foreignKey: 'userId',
+    as: 'Owner'
+});
+
+// Project <-> Test Association
+Project.hasOne(Test, {
+    foreignKey: 'projectId',
+    as: 'tests'
+});
+
+Test.belongsTo(Project, {
+    foreignKey: 'projectId'
+});
+
+// Project <-> Environment Association
+Project.hasOne(Environment, {
+    foreignKey: 'projectId',
+    as: 'environments'
+});
+
+Environment.belongsTo(Project, {
+    foreignKey: 'projectId'
+});
+
+// Project <-> Documentation Association
+Project.hasOne(Documentation, {
+    foreignKey: 'projectId',
+    as: 'documentations'
+});
+
+Documentation.belongsTo(Project, {
+    foreignKey: 'projectId'
+});
+
+// Project <-> Team Association
+Project.hasOne(Team, {
+    foreignKey: 'projectId',
+    as: 'Teams'
+});
+
+Team.belongsTo(Project, {
+    foreignKey: 'projectId'
+});
+
+// Project <-> Security Association
+Project.hasOne(Security, {
+    foreignKey: 'projectId',
+    as: 'security'
+});
+
+Security.belongsTo(Project, {
+    foreignKey: 'projectId'
+});
+
+// Project <-> AdditionalInfo Association
+Project.hasOne(AdditionalInfo, {
+    foreignKey: 'projectId',
+    as: 'additionalInfos'
+});
+
+AdditionalInfo.belongsTo(Project, {
+    foreignKey: 'projectId'
+});
+
+export {
+    User,
+    Project,
+    Test,
+    Environment,
+    Documentation,
+    Team,
+    Security,
+    AdditionalInfo
+};
 export async function createProject(requisicao, resposta) {
     try {
         const userId = requisicao.user.id;

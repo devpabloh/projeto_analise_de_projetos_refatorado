@@ -9,12 +9,12 @@ async function seed(){
     await sequelize.sync({force: true});
 
     const passwordAdmin = await bcrypt.hash('senhaAdmin', 10);
-    const passwordCommon = await bcrypt.hash('senhaComun', 10);
+    const passwordCommon = await bcrypt.hash('senhaComum', 10); // Fixed typo: senhaComun -> senhaComum
 
     // Cria os usuários iniciais
     await User.bulkCreate([
-      {name: 'administrador', email: "admin@exemple.com", password: passwordAdmin, role: 'admin'},
-      {name: 'comum', email: "comun@exemple.com", password: passwordCommon, role: 'common'}
+      {name: 'administrador', email: "admin@example.com", password: passwordAdmin, role: 'admin'}, // Fixed typo: exemple -> example
+      {name: 'comum', email: "comun@example.com", password: passwordCommon, role: 'common'} // Fixed typo: exemple -> example
     ]);
 
     console.log("Seed concluído!");

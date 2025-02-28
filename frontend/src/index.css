@@ -21,9 +21,14 @@
 
 body{
   display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-primary);
   line-height: 1.5;
   font-weight: 400;
+  min-height: 100vh; 
+  margin: 0;
+  padding: 0; 
 }
 
 fieldset{
