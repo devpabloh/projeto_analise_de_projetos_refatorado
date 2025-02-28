@@ -41,7 +41,7 @@ app.use('/analiseDeProjetos/auth', authRoutes);
 app.use('/analiseDeProjetos/users', userRoutes);
 app.use('/analiseDeProjetos/projects', projectRoutes);
 
-sequelize.sync({ force: false })
+sequelize.sync({ force: true })
     .then(() => {
         console.log('Banco de dados sincronizado com sucesso');
         app.listen(PORT, () => {

@@ -22,10 +22,12 @@ const Documentation = sequelize.define('documentations', {
         type: DataTypes.STRING
     },
     updatingTechnicalDocumentation: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.DATEONLY,
+        allowNull: true
     },
     updateTechnicalVersion: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: true
     },
     functionalDocumentation: {
         type: DataTypes.TEXT
@@ -34,7 +36,7 @@ const Documentation = sequelize.define('documentations', {
         type: DataTypes.STRING
     },
     updatingFunctionalDocumentation: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.DATEONLY
     },
     updateFunctionalVersion: {
         type: DataTypes.STRING

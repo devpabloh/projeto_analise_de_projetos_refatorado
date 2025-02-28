@@ -1,38 +1,117 @@
-import User from './user.js';
-import Project from './Project.js';
-import Documentation from './Documentation.js';
-import Environment from './Environment.js';
-import Security from './Security.js';
-import Team from './Team.js';
-import Test from './Test.js';
-import AdditionalInfo from './AdditionalInfo.js';
-
-// User <-> Project associations
-User.hasMany(Project, { foreignKey: 'userId', as: 'projects' });
-Project.belongsTo(User, { foreignKey: 'userId', as: 'Owner' });
-
-// Project <-> Documentation associations
-Project.hasMany(Documentation, { foreignKey: 'projectId', as: 'documentations' });
-Documentation.belongsTo(Project, { foreignKey: 'projectId', as: 'project' });
-
-// Project <-> Environment associations
-Project.hasMany(Environment, { foreignKey: 'projectId', as: 'environments' });
-Environment.belongsTo(Project, { foreignKey: 'projectId', as: 'project' });
-
-// Project <-> Security associations
-Project.hasMany(Security, { foreignKey: 'projectId', as: 'security' });
-Security.belongsTo(Project, { foreignKey: 'projectId', as: 'project' });
-
-// Project <-> Team associations
-Project.hasMany(Team, { foreignKey: 'projectId', as: 'Teams' });
-Team.belongsTo(Project, { foreignKey: 'projectId', as: 'project' });
-
-// Project <-> Test associations
-Project.hasMany(Test, { foreignKey: 'projectId', as: 'tests' });
-Test.belongsTo(Project, { foreignKey: 'projectId', as: 'project' });
-
-// Project <-> AdditionalInfo associations
-Project.hasMany(AdditionalInfo, { foreignKey: 'projectId', as: 'additionalInfos' });
-AdditionalInfo.belongsTo(Project, { foreignKey: 'projectId', as: 'project' });
-
-export { User, Project, Documentation, Environment, Security, Team, Test, AdditionalInfo };
+export async function createProject(requisicao, resposta) {
+    try {
+        const userId = requisicao.user.id;
+        console.log('Received data:', requisicao.body);
+        console.log('User ID:', userId);
+        
+        // Extrair dados para cada tabela
+        const {
+            // Dados do projeto principal
+            projectName, projectDescription, responsibleFillingOut, responsibleContact,
+            fillingDate, developmentPhase, hasDocumentation, documentationType,
+            
+            // Dados de teste
+            carriedOutTests, selectedTests, otherTestsDescription, 
+            frequencyAndAutomation, testingToolsUsed,
+            
+            // Dados de ambiente
+            developmentEnvironment, approvalEnvironment, productionEnvironment,
+            deploymentEnvironmentNotes,
+            
+            // Dados de documentação
+            technicalDocumentation, linkTechnicalDocumentation, updatingTechnicalDocumentation,
+            updateTechnicalVersion, functionalDocumentation, linkFunctionalDocumentation,
+            updatingFunctionalDocumentation, updateFunctionalVersion,
+            
+            // Dados de equipe
+            technicalLeaderName, projectManagerName, technicalSupport,
+            supportName, supportPeriod,
+            
+            // Dados de segurança
+            securityMeasures, whatSecurityMeasures, otherSecurityMeasures,
+            compliance, whatCompliance, otherCompliance,
+            
+            // Dados adicionais
+            challengesFaced, identifiedRisks, additionalComments
+        } = requisicao.body;
+        
+        // Criar o projeto principal
+        const project = await Project.create({
+            userId,
+            projectName,
+            projectDescription,
+            responsibleFillingOut,
+            responsibleContact,
+            fillingDate,
+            developmentPhase,
+            hasDocumentation,
+            documentationType
+        });
+        
+        // Criar registro de testes
+        await Test.create({
+            projectId: project.id,
+            carriedOutTests,
+            selectedTests,
+            otherTestsDescription,
+            frequencyAndAutomation,
+            testingToolsUsed
+        });
+        
+        // Criar registro de ambiente
+        await Environment.create({
+            projectId: project.id,
+            developmentEnvironment,
+            approvalEnvironment,
+            productionEnvironment,
+            deploymentEnvironmentNotes
+        });
+        
+        // Criar registro de documentação
+        await Documentation.create({
+            projectId: project.id,
+            technicalDocumentation,
+            linkTechnicalDocumentation,
+            updatingTechnicalDocumentation,
+            updateTechnicalVersion,
+            functionalDocumentation,
+            linkFunctionalDocumentation,
+            updatingFunctionalDocumentation,
+            updateFunctionalVersion
+        });
+        
+        // Criar registro de equipe
+        await Team.create({
+            projectId: project.id,
+            technicalLeaderName,
+            projectManagerName,
+            technicalSupport,
+            supportName,
+            supportPeriod
+        });
+        
+        // Criar registro de segurança
+        await Security.create({
+            projectId: project.id,
+            securityMeasures,
+            whatSecurityMeasures,
+            otherSecurityMeasures,
+            compliance,
+            whatCompliance,
+            otherCompliance
+        });
+        
+        // Criar registro de informações adicionais
+        await AdditionalInfo.create({
+            projectId: project.id,
+            challengesFaced,
+            identifiedRisks,
+            additionalComments
+        });
+        
+        resposta.status(201).json(project);
+    } catch (error) {
+        console.error('Error creating project:', error);
+        resposta.status(500).json({ error: error.message });
+    }
+}
