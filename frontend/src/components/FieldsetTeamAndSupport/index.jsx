@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const FieldsetTeamAndSupport = ({formData, onChange})=>{
+const FieldsetTeamAndSupport = ({formData, onChange, readOnly})=>{
 
     return(
         
@@ -15,6 +15,7 @@ const FieldsetTeamAndSupport = ({formData, onChange})=>{
                     value={formData.technicalLeaderName}
                     onChange={onChange}
                     placeholder="Nome do Líder Técnico."
+                    disabled={readOnly}
                 />
             </div>
             <div>
@@ -26,6 +27,7 @@ const FieldsetTeamAndSupport = ({formData, onChange})=>{
                     value={formData.projectManagerName}
                     onChange={onChange}
                     placeholder="Nome do Gerente de Projeto."
+                    disabled={readOnly}
                 />
             </div>
             <div>
@@ -35,6 +37,7 @@ const FieldsetTeamAndSupport = ({formData, onChange})=>{
                     id="technicalSupport"
                     value={formData.technicalSupport}
                     onChange={onChange}
+                    disabled={readOnly}
                 >
                     <option value="">Selecione uma opção</option>
                     <option value="sim">Sim</option>
@@ -52,6 +55,7 @@ const FieldsetTeamAndSupport = ({formData, onChange})=>{
                         value={formData.supportName}
                         onChange={onChange}
                         placeholder="Nome do Responsável pelo Suporte."
+                        disabled={readOnly}
                     />
                 </div>
                 <div>
@@ -61,6 +65,7 @@ const FieldsetTeamAndSupport = ({formData, onChange})=>{
                         id="supportPeriod"
                         value={formData.supportPeriod}
                         onChange={onChange}
+                        disabled={readOnly}
                         >
                         <option value="horarioComercial">Horário comercial</option>
                         <option value="24por7">24/7</option>
@@ -81,7 +86,8 @@ FieldsetTeamAndSupport.propTypes = {
         supportName: PropTypes.string,
         supportPeriod: PropTypes.string
     }).isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool
 };
 
 export default FieldsetTeamAndSupport

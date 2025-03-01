@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const FieldsetSecurityAndCompliance = ({formData, onChange})=>{
+const FieldsetSecurityAndCompliance = ({formData, onChange, readOnly})=>{
     return (
         <fieldset>
             <legend>Segurança e Conformidade</legend>
@@ -11,6 +11,7 @@ const FieldsetSecurityAndCompliance = ({formData, onChange})=>{
                     id="securityMeasures"
                     value={formData.securityMeasures}
                     onChange={onChange}
+                    disabled={readOnly}
                     >
                     <option value="">Selecione uma opção</option>
                     <option value="sim">Sim</option>
@@ -25,6 +26,7 @@ const FieldsetSecurityAndCompliance = ({formData, onChange})=>{
                         id="whatSecurityMeasures"
                         value={formData.whatSecurityMeasures}
                         onChange={onChange}
+                        disabled={readOnly}
                     >
                         <option value="">Selecione uma opção</option>
                         <option value="criptografiaDeDados">Criptografia de dados</option>
@@ -45,6 +47,7 @@ const FieldsetSecurityAndCompliance = ({formData, onChange})=>{
                         value={formData.otherSecurityMeasures}
                         onChange={onChange}
                         placeholder="Quais são as outras medidas de segurança."
+                        disabled={readOnly}
                     />
                 </div>)}
                 <div>
@@ -54,6 +57,7 @@ const FieldsetSecurityAndCompliance = ({formData, onChange})=>{
                         id="compliance"
                         value={formData.compliance}
                         onChange={onChange}
+                        disabled={readOnly}
                     >
                         <option value="">Selecione uma opção</option>
                         <option value="sim">Sim</option>
@@ -68,6 +72,7 @@ const FieldsetSecurityAndCompliance = ({formData, onChange})=>{
                             id="whatCompliance"
                             value={formData.whatCompliance}
                             onChange={onChange}
+                            disabled={readOnly}
                         >
                             <option value="">Selecione uma opção</option>
                             <option value="LGPD">LGPD</option>
@@ -88,6 +93,7 @@ const FieldsetSecurityAndCompliance = ({formData, onChange})=>{
                             value={formData.otherCompliance}
                             onChange={onChange}
                             placeholder="Quais são as outras normas de conformidade."
+                            disabled={readOnly}
                         />
                     </div>
                 )}
@@ -104,7 +110,8 @@ FieldsetSecurityAndCompliance.propTypes = {
         whatCompliance: PropTypes.string,
         otherCompliance: PropTypes.string
     }).isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool
 };
 
 export default FieldsetSecurityAndCompliance

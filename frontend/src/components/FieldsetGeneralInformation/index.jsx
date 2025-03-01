@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 
-const FieldsetGeneralInformation = ({formData, onChange})=>{
+const FieldsetGeneralInformation = ({formData, onChange, readOnly})=>{
     return(
         <fieldset>
             <legend>Informações gerais do projeto</legend>
@@ -12,6 +12,8 @@ const FieldsetGeneralInformation = ({formData, onChange})=>{
                     name="projectName"
                     value={formData.projectName}
                     onChange={onChange}
+                    disabled={readOnly}
+                    required
                 />
             </div>
             <div>
@@ -21,6 +23,8 @@ const FieldsetGeneralInformation = ({formData, onChange})=>{
                     name="projectDescription"
                     value={formData.projectDescription}
                     onChange={onChange}
+                    disabled={readOnly}
+
                 ></textarea>
             </div>
             <div>
@@ -31,6 +35,8 @@ const FieldsetGeneralInformation = ({formData, onChange})=>{
                     id="responsibleFillingOut" 
                     value={formData.responsibleFillingOut}
                     onChange={onChange}
+                    disabled={readOnly}
+                    required
                 />
             </div>
 
@@ -42,6 +48,8 @@ const FieldsetGeneralInformation = ({formData, onChange})=>{
                     id="responsibleContact"
                     value={formData.responsibleContact}
                     onChange={onChange}
+                    disabled={readOnly}
+                    required
                 />
             </div> 
             <div>
@@ -51,7 +59,8 @@ const FieldsetGeneralInformation = ({formData, onChange})=>{
                     name="fillingDate"
                     id="fillingDate"
                     value={formData.fillingDate}
-                    readOnly
+                    onChange={onChange}
+                    disabled={readOnly}
                 />
             </div> 
         </fieldset>
@@ -66,7 +75,8 @@ FieldsetGeneralInformation.propTypes = {
         responsibleContact: PropTypes.string,
         fillingDate: PropTypes.string
     }).isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool
 };
 
 export default FieldsetGeneralInformation

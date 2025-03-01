@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const FieldsetDevelopmentStatus = ({formData, onChange}) =>{
+const FieldsetDevelopmentStatus = ({formData, onChange, readOnly}) =>{
     const developmentPhases = [
         { id: 1, value: "planegamento", label: "Planejamento"},
         { id: 2, value: "desenvolvimento", label: "Desenvolvimento"},
@@ -18,6 +18,8 @@ const FieldsetDevelopmentStatus = ({formData, onChange}) =>{
                     id="developmentPhase"
                     value={formData.developmentPhase}
                     onChange={onChange}
+                    disabled={readOnly}
+                    required
                 >
                     <option value="" >Selecione uma opção</option>
                     {developmentPhases.map((phase)=>(
@@ -33,7 +35,8 @@ FieldsetDevelopmentStatus.propTypes = {
     formData: PropTypes.shape({
         developmentPhase: PropTypes.string
     }).isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool
 };
 
 export default FieldsetDevelopmentStatus

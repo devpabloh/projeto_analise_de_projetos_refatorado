@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const FieldsetTestingAndQuality = ({formData, onChange})=>{
+const FieldsetTestingAndQuality = ({formData, onChange, readOnly})=>{
     const typesOfTests = [
         {
             id: 1,
@@ -38,7 +38,7 @@ const FieldsetTestingAndQuality = ({formData, onChange})=>{
 
 
     const handleTestChange = (evento) => {
-        const { name, value, checked } = evento.target;
+        const { value, checked } = evento.target;
         const updatedTests = checked 
             ? [...(formData.selectedTests || []), value]
             : (formData.selectedTests || []).filter(test => test !== value);
@@ -61,6 +61,7 @@ const FieldsetTestingAndQuality = ({formData, onChange})=>{
                     id="carriedOutTests"
                     value={formData.carriedOutTests}
                     onChange={onChange}
+                    disabled={readOnly}
                 >
                     <option value="">Selecione uma opção</option>
                     <option value="sim">Sim</option>
@@ -79,6 +80,7 @@ const FieldsetTestingAndQuality = ({formData, onChange})=>{
                                         value={test.value}
                                         checked={(formData.selectedTests || []).includes(test.value)}
                                         onChange={handleTestChange}
+                                        disabled={readOnly}
                                     />
                                     {test.label}
                                 </label>
@@ -94,6 +96,7 @@ const FieldsetTestingAndQuality = ({formData, onChange})=>{
                                     name="otherTestsDescription"
                                     value={formData.otherTestsDescription || ''}
                                     onChange={onChange}
+                                    disabled={readOnly}
                                 />
                             </div>
                         )}
@@ -105,6 +108,7 @@ const FieldsetTestingAndQuality = ({formData, onChange})=>{
                                     id="frequencyAndAutomation"
                                     value={formData.frequencyAndAutomation}
                                     onChange={onChange}
+                                    disabled={readOnly}
                                 >
                                     <option value="">Selecione uma opção</option>
                                     <option value="continua">Contínua</option>
@@ -123,6 +127,7 @@ const FieldsetTestingAndQuality = ({formData, onChange})=>{
                                 placeholder="Ex: Jest, Mocha, JUnit, Selenium, Cypress, Postman, SonarQube, JMeter, K6"
                                 value={formData.testingToolsUsed}
                                 onChange={onChange}
+                                disabled={readOnly}
                             />
                         </div>
                         )}
@@ -144,6 +149,7 @@ FieldsetTestingAndQuality.propTypes = {
         frequencyAndAutomation: PropTypes.string,
         testingToolsUsed: PropTypes.string
     }).isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool
 };
 export default FieldsetTestingAndQuality;

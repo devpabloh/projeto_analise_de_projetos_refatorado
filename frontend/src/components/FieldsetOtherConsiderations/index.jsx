@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const FieldsetOtherConsiderations = ({formData, onChange})=>{
+const FieldsetOtherConsiderations = ({formData, onChange, readOnly})=>{
     return (
         <fieldset>
             <legend>Outras Considerações</legend>
@@ -12,6 +12,7 @@ const FieldsetOtherConsiderations = ({formData, onChange})=>{
                         value={formData.challenges}
                         onChange={onChange}
                         placeholder="Principais desafios enfrentados até agora."
+                        disabled={readOnly}
                     />
                 </div>
                 <div>
@@ -22,6 +23,7 @@ const FieldsetOtherConsiderations = ({formData, onChange})=>{
                         value={formData.identifiedRisks}
                         onChange={onChange}
                         placeholder="Riscos identificados para a continuidade do projeto."
+                        disabled={readOnly}
                     />
                 </div>
                 <div>
@@ -32,6 +34,7 @@ const FieldsetOtherConsiderations = ({formData, onChange})=>{
                         value={formData.commentsAdditionals}
                         onChange={onChange}
                         placeholder="Comentários adicionais."
+                        disabled={readOnly}
                     />
                 </div>
         </fieldset>
@@ -44,7 +47,8 @@ FieldsetOtherConsiderations.propTypes = {
         identifiedRisks: PropTypes.string,
         commentsAdditionals: PropTypes.string
     }).isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool
 };
 
 export default FieldsetOtherConsiderations;

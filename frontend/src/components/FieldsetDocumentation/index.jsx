@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const FieldsetDocumentation = ({formData, onChange})=>{
+const FieldsetDocumentation = ({formData, onChange, readOnly})=>{
 
     return(
         <fieldset>
@@ -12,6 +12,8 @@ const FieldsetDocumentation = ({formData, onChange})=>{
                     id="hasDocumentation"
                     value={formData.hasDocumentation}
                     onChange={onChange}
+                    disabled={readOnly}
+                    required
                 >
                     <option value="">Selecione uma opção</option>
                     <option value="sim">Sim</option>
@@ -26,6 +28,7 @@ const FieldsetDocumentation = ({formData, onChange})=>{
                         id="technicalDocumentation"
                         value={formData.technicalDocumentation}
                         onChange={onChange}
+                        disabled={readOnly}
                     >
                         <option value="">Selecione uma opção</option>
                         <option value="disponivel">Disponível</option>
@@ -43,6 +46,7 @@ const FieldsetDocumentation = ({formData, onChange})=>{
                         value={formData.linkTechnicalDocumentation}
                         onChange={onChange}
                         placeholder="Campo para informar onde a documentação pode ser acessada."
+                        disabled={readOnly}
                     />
                 </div>
             )}
@@ -56,6 +60,7 @@ const FieldsetDocumentation = ({formData, onChange})=>{
                             type="Date"
                             value={formData.updatingTechnicalDocumentation}
                             onChange={onChange}
+                            disabled={readOnly}
                         />
                     </div>
                     <div>
@@ -67,7 +72,7 @@ const FieldsetDocumentation = ({formData, onChange})=>{
                             value={formData.updateTechnicalVersion}
                             onChange={onChange}
                             placeholder="Versão atual da documentação."
-
+                            disabled={readOnly}
                         />
                     </div>
                 </div>
@@ -81,6 +86,7 @@ const FieldsetDocumentation = ({formData, onChange})=>{
                         value={formData.functionalDocumentation
                         }
                         onChange={onChange}
+                        disabled={readOnly}
                     >
                         <option value="">Selecione uma opção</option>
                         <option value="disponivel">Disponível</option>
@@ -98,6 +104,7 @@ const FieldsetDocumentation = ({formData, onChange})=>{
                         value={formData.linkFunctionalDocumentation}
                         onChange={onChange}
                         placeholder="Campo para referência."
+                        disabled={readOnly}
                     />
                 </div>
             )}
@@ -111,10 +118,11 @@ const FieldsetDocumentation = ({formData, onChange})=>{
                             type="Date"
                             value={formData.updatingFunctionalDocumentation}
                             onChange={onChange}
+                            disabled={readOnly}
                         />
                     </div>
                     <div>
-                        <label htmlFor="updateFunctionalVersion"></label>
+                        <label htmlFor="updateFunctionalVersion">Versão</label>
                         <input 
                             type="text"
                             name="updateFunctionalVersion"
@@ -122,6 +130,7 @@ const FieldsetDocumentation = ({formData, onChange})=>{
                             value={formData.updateFunctionalVersion}
                             onChange={onChange}
                             placeholder="Versão atual da documentação."
+                            disabled={readOnly}
                         />
                     </div>
                 </div>
@@ -129,6 +138,7 @@ const FieldsetDocumentation = ({formData, onChange})=>{
         </fieldset>
     )
 }
+
 
 FieldsetDocumentation.propTypes = {
     formData: PropTypes.shape({
@@ -142,7 +152,8 @@ FieldsetDocumentation.propTypes = {
         updatingFunctionalDocumentation: PropTypes.string,
         updateFunctionalVersion: PropTypes.string
     }).isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool
 };
 
 export default FieldsetDocumentation
