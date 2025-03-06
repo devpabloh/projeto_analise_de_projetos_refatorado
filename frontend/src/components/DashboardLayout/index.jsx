@@ -1,5 +1,6 @@
 import {Routes, Route, Link, useNavigate} from 'react-router-dom';
 import {useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
 
 /* Importando o CSS */
 import styles from './DashboardLayout.module.css';
@@ -10,6 +11,7 @@ import logoATI from '../../assets/logoATI.png';
 /* Importando os componentes */
 import ProjectList from '../ProjectList/index.jsx';
 import ProjectModal from '../ProjectModal/index.jsx';
+import UserManagement from '../UserManagement/index.jsx';
 
 const DashboardLayout = ({user, onLogout})=>{
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,6 +30,8 @@ const DashboardLayout = ({user, onLogout})=>{
     }, []);
 
     const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
         onLogout();
         navigate('/');
     };
@@ -101,15 +105,17 @@ const DashboardLayout = ({user, onLogout})=>{
             <main className={styles.mainContent}>
                 <div className={styles.header}>
                     <h1>Dashboard</h1>
-                    <button onClick={()=> setIsModalOpen(true)} className={styles.addButton}>
-                        Adicionar Projeto
-                    </button>
+                    {user && user.role !== 'admin' && (
+                        <button onClick={()=> setIsModalOpen(true)} className={styles.addButton}>
+                            Adicionar Projeto
+                        </button>
+                    )}
                 </div>
                 <div className={styles.contentArea}>
                     <Routes>
                         <Route path="/" element={<DashboardHome user={user} />} />
                         <Route path="/projects" element={<ProjectList />} />
-                        <Route path="/users" element={<UserManagement />} />
+                        <Route path="/users" element={<UserManagement currentUser={user} />} />
                     </Routes>
                 </div>
             </main>
@@ -125,14 +131,29 @@ const DashboardLayout = ({user, onLogout})=>{
 function DashboardHome({ user }) {
     return (
         <div>
-            <h2>Bem-vindo ao Sistema de Análise de Projetos</h2>
+            <h2>Bem-vindo ao Sistema de Análise de Projetos, {user.name}!</h2>
             <p>Selecione uma opção no menu lateral para começar.</p>
+            <p>Seu papel no sistema: {user.role === 'admin' ? 'Administrador' : 'Usuário Comum'}</p>
         </div>
     );
 }
 
-function UserManagement() {
-    return <div>Gerenciamento de Usuários</div>;
-}
+DashboardLayout.propTypes = {
+    user: PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string.isRequired,
+        role: PropTypes.string.isRequired
+    }).isRequired,
+    onLogout: PropTypes.func.isRequired
+};
+
+DashboardHome.propTypes = {
+    user: PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string.isRequired,
+        role: PropTypes.string.isRequired
+    }).isRequired
+};
+
 
 export default DashboardLayout;

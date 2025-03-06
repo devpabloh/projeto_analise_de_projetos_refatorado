@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react"; 
-import axios from "axios";
+import api from "../../services/api"; // Usar o serviço API centralizado
 import ProjectModal from "../ProjectModal/ProjectModal";
 import Header from "../Header";
 import Footer from "../Footer";
@@ -12,18 +12,8 @@ function Dashboard({ user, onLogout }) {
     const [loading, setLoading] = useState(true);
 
     const fetchProjects = useCallback(async () => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            onLogout();
-            return;
-        }
-
         try {
-            const response = await axios.get("http://localhost:3000/analiseDeProjetos/projects", {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
+            const response = await api.get("/projects");
             setProjects(response.data);
         } catch (error) {
             console.error("Error fetching projects:", error);
@@ -37,24 +27,13 @@ function Dashboard({ user, onLogout }) {
     }, [onLogout]);
 
     const handleSaveProject = useCallback(async (projectData) => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            alert("Sessão expirada. Por favor, faça login novamente.");
-            onLogout();
-            return;
-        }
         try {
             console.log("Enviando dados do projeto:", projectData);
             
-            const response = await axios.post(
-                "http://localhost:3000/analiseDeProjetos/projects",
-                projectData,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                }
+            // Usando o serviço API que já inclui o token automaticamente
+            const response = await api.post(
+                "/projects",
+                projectData
             );
             console.log("Resposta do servidor:", response.data);
             await fetchProjects();
@@ -100,44 +79,44 @@ function Dashboard({ user, onLogout }) {
         <div className={styles.dashboardContainer}>
             <Header user={user} onLogout={onLogout} />
             <main className={styles.mainContent}>
-                {user.role === 'admin' ? (
-                    <p>Você é um administrador</p>
-                ) : (
-                    <div className={styles.projectsSection}>
-                        <h1>Dashboard</h1>
-                        <p>Bem vindo, {user.name}</p>
-                        <h1>Meus Projetos</h1>
+                <div className={styles.projectsSection}>
+                    <h1>Dashboard</h1>
+                    <p>Bem vindo, {user.name}</p>
+                    <h1>Meus Projetos</h1>
+                    {user.role !== 'admin' && (
                         <button 
                             onClick={openModal} 
                             className={styles.addButton}
                         >
                             Adicionar Projeto
                         </button>
-                        {loading ? (
-                            <p>Carregando projetos...</p>
-                        ) : (
-                            <ul className={styles.projectsList}> 
-                                {projects.length === 0 ? (
-                                    <p>Nenhum projeto encontrado.</p>
-                                ) : (
-                                    projects.map((project) => (
-                                        <li key={project.id} className={styles.projectItem}>
-                                            <h3>{project.projectName}</h3>
-                                            <p><strong>Fase:</strong> {project.developmentPhase}</p>
-                                            <p><strong>Descrição:</strong> {project.projectDescription}</p>
-                                            <p><strong>Responsável:</strong> {project.responsibleFillingOut}</p>
-                                        </li>
-                                    ))
-                                )}
-                            </ul>
-                        )}
+                    )}
+                    {loading ? (
+                        <p>Carregando projetos...</p>
+                    ) : (
+                        <ul className={styles.projectsList}> 
+                            {projects.length === 0 ? (
+                                <p>Nenhum projeto encontrado.</p>
+                            ) : (
+                                projects.map((project) => (
+                                    <li key={project.id} className={styles.projectItem}>
+                                        <h3>{project.projectName}</h3>
+                                        <p><strong>Fase:</strong> {project.developmentPhase}</p>
+                                        <p><strong>Descrição:</strong> {project.projectDescription}</p>
+                                        <p><strong>Responsável:</strong> {project.responsibleFillingOut}</p>
+                                    </li>
+                                ))
+                            )}
+                        </ul>
+                    )}
+                    {user.role !== 'admin' && (
                         <ProjectModal
                             isOpen={modalOpen}
                             isClose={closeModal}
                             onSave={handleSaveProject}
                         />
-                    </div>
-                )}
+                    )}
+                </div>
             </main>
             <Footer />
         </div>

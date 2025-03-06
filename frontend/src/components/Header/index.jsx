@@ -5,11 +5,11 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
 const Header = ({user, onLogout }) => {
   const handleLogout = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
-    onLogout()
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    onLogout();
   }
-
+  
   return (
     <header className={styles.containerHeader}>
       <img src={logoAti} alt="" />

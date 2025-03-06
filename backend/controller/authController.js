@@ -61,12 +61,12 @@ export async function login(requisicao, resposta){
         console.log('JWT_SECRET exists:', !!process.env.JWT_SECRET);
 
         // Gerar o token, que serve para autenticar o usuário
+        // Dentro da função login, aumentar o tempo de expiração do token
         const token = jwt.sign(
             {id: user.id, role: user.role},
             process.env.JWT_SECRET,
-            {expiresIn: "24h"}
-        )
-
+            {expiresIn: "7d"} // Aumentar para 7 dias em vez de 24h
+        );
         console.log('Token gerado com sucesso');
         console.log('8. Token gerado com sucesso');
         resposta.json({token, user: {id: user.id, name: user.name, role: user.role}})

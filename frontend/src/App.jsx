@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'; // Certifique-se de que Navigate está aqui
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -8,27 +8,53 @@ import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true); // Adicionar estado de carregamento
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
+        
+        if (storedUser && token) {
+            try {
+                const parsedUser = JSON.parse(storedUser);
+                setUser(parsedUser);
+            } catch (error) {
+                console.error("Erro ao analisar dados do usuário:", error);
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+            }
+        }
+        setLoading(false); // Marcar carregamento como concluído
+    }, []);
 
     return (
         <ErrorBoundary>
             <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Login onLogin={setUser} />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route 
-                        path="/dashboard/*" 
-                        element={
-                            user ? (
-                                <DashboardLayout 
-                                    user={user} 
-                                    onLogout={() => setUser(null)} 
-                                />
-                            ) : (
-                                <Navigate to="/" replace />
-                            )
-                        } 
-                    />
-                </Routes>
+                {loading ? (
+                    <div>Carregando...</div>
+                ) : (
+                    <Routes>
+                        <Route path="/" element={<Login onLogin={setUser} />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route 
+                            path="/dashboard/*" 
+                            element={
+                                user ? (
+                                    <DashboardLayout 
+                                        user={user} 
+                                        onLogout={() => {
+                                            localStorage.removeItem('token');
+                                            localStorage.removeItem('user');
+                                            setUser(null);
+                                        }} 
+                                    />
+                                ) : (
+                                    <Navigate to="/" replace />
+                                )
+                            } 
+                        />
+                    </Routes>
+                )}
             </BrowserRouter>
         </ErrorBoundary>
     );
