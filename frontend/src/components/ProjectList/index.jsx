@@ -25,7 +25,6 @@ const ProjectList = () => {
             setIsLoading(true);
             const token = localStorage.getItem('token');
             
-            // Buscar os detalhes completos do projeto pelo ID
             const response = await fetch(`http://localhost:3000/analiseDeProjetos/projects/${project.id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -39,10 +38,8 @@ const ProjectList = () => {
             const projectDetails = await response.json();
             console.log("Detalhes do projeto recebidos:", projectDetails);
             
-            // Primeiro definimos o projeto selecionado
             setSelectedProject(projectDetails);
             
-            // Pequeno atraso para garantir que o estado foi atualizado antes de abrir o modal
             setTimeout(() => {
                 setIsModalOpen(true);
                 setIsEditing(false);
@@ -81,7 +78,7 @@ const ProjectList = () => {
                 throw new Error('Falha ao atualizar o projeto');
             }
 
-            // Atualiza a lista de projetos com o projeto atualizado
+        
             setProjects(projects.map(project =>
                 project.id === updatedProject.id ? updatedProject : project));
             
@@ -94,7 +91,6 @@ const ProjectList = () => {
         }
     };
 
-    // useEffect para filtrar projetos quando o termo de busca ou opção de filtro muda
     useEffect(() => {
         if (searchTerm.trim() === '') {
             setFilteredProjects(projects);
@@ -107,7 +103,7 @@ const ProjectList = () => {
         }
     }, [searchTerm, filterOption, projects]);
 
-    // useEffect para buscar todos os projetos quando o componente é montado
+    
     useEffect(() => {
         const fetchProjects = async () => {
             try {
@@ -124,7 +120,7 @@ const ProjectList = () => {
     
                 const data = await response.json();
                 setProjects(data);
-                setFilteredProjects(data); // Inicialize filteredProjects com todos os projetos
+                setFilteredProjects(data);
             } catch (error) {
                 console.error('Erro ao carregar projetos:', error);
             }

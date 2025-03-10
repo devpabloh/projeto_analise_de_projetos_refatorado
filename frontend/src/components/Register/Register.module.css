@@ -100,3 +100,9 @@
     opacity: 0.9;
     background-color: #007bff;
 }
+
+@media (max-width: 320px){
+    .containerRegister{
+        max-width: 250px;
+    }
+}

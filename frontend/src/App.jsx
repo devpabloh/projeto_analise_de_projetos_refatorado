@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'; // Certifique-se de que Navigate está aqui
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'; 
 import Login from "./components/Login";
 import Register from "./components/Register";
 import DashboardLayout from "./components/DashboardLayout";
@@ -8,7 +8,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true); // Adicionar estado de carregamento
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
@@ -24,7 +24,7 @@ function App() {
                 localStorage.removeItem('token');
             }
         }
-        setLoading(false); // Marcar carregamento como concluído
+        setLoading(false); 
     }, []);
 
     return (

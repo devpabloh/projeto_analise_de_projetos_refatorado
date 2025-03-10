@@ -27,10 +27,8 @@ function Register() {
     }
 
     const formatPhone = (value) => {
-        // Remove tudo que não for número
         const numbers = value.replace(/\D/g, '')
         
-        // Aplica a formatação
         if (numbers.length <= 2) {
             return numbers
         } else if (numbers.length <= 7) {
@@ -43,27 +41,10 @@ function Register() {
     const validatePassword = (password) => {
         return password.length >= 6
     }
-    // Fix the event.preventDefault call
-    const handleRegister = async (event) => {
-        event.preventDefault(); // Remove {onRegister}
-        try {
-            const response = await axios.post("http://localhost:3000/analiseDeProjetos/auth/register", {
-                name,
-                email, 
-                password
-            });
-            
-            if (response.data) {
-                navigate('/'); // Redirect to login after successful registration
-            }
-        } catch (err) {
-            setError(err.response?.data?.message || "Erro de registro, tente novamente.");
-        }
-    }
+    
     const handleChange = (e) => {
         const { name, value } = e.target
         
-        // Formatação especial para telefone
         if (name === 'phone') {
             const formattedPhone = formatPhone(value)
             setFormData(prev => ({
@@ -77,7 +58,6 @@ function Register() {
             }))
         }
     
-        // Validação em tempo real
         const newErrors = { ...errors }
     
         switch (name) {
@@ -120,7 +100,6 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         
-        // Validação final antes do envio
         if (Object.keys(errors).length > 0) {
             setSubmitError("Por favor, corrija os erros antes de enviar")
             return
@@ -136,8 +115,7 @@ function Register() {
                     password: formData.password
                 }
             )
-    
-            // Redireciona para login após registro bem-sucedido
+            
             navigate('/')
         } catch (err) {
             setSubmitError(err.response?.data?.message || "Erro ao registrar usuário")
