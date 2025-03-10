@@ -2,13 +2,13 @@ import {Routes, Route, Link, useNavigate} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 
-/* Importando o CSS */
+
 import styles from './DashboardLayout.module.css';
 
-/* Importando as imagens */
+
 import logoATI from '../../assets/logoATI.png';
 
-/* Importando os componentes */
+
 import ProjectList from '../ProjectList/index.jsx';
 import ProjectModal from '../ProjectModal/index.jsx';
 import UserManagement from '../UserManagement/index.jsx';

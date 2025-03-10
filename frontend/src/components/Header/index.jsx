@@ -2,6 +2,7 @@ import styles from "./Header.module.css"
 import logoAti from "../../assets/logoAti.png"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from "prop-types"
 
 const Header = ({user, onLogout }) => {
   const handleLogout = () => {
@@ -27,6 +28,15 @@ const Header = ({user, onLogout }) => {
       )}
     </header>
   )
+}
+
+Header.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    role: PropTypes.string
+  }),
+  onLogout: PropTypes.func.isRequired
 }
 
 export default Header

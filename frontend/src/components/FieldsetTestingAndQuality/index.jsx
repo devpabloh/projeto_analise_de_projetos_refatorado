@@ -140,7 +140,7 @@ const FieldsetTestingAndQuality = ({formData, onChange, readOnly})=>{
     )
 }
 
-// Add PropTypes at the end of the file
+
 FieldsetTestingAndQuality.propTypes = {
     formData: PropTypes.shape({
         carriedOutTests: PropTypes.string,

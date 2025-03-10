@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react"; 
-import api from "../../services/api"; // Usar o serviço API centralizado
+import api from "../../services/api"; 
 import ProjectModal from "../ProjectModal/ProjectModal";
 import Header from "../Header";
 import Footer from "../Footer";
@@ -30,7 +30,6 @@ function Dashboard({ user, onLogout }) {
         try {
             console.log("Enviando dados do projeto:", projectData);
             
-            // Usando o serviço API que já inclui o token automaticamente
             const response = await api.post(
                 "/projects",
                 projectData
@@ -42,7 +41,7 @@ function Dashboard({ user, onLogout }) {
             console.error("Full error:", error);
             
             if (error.response) {
-                // O servidor respondeu com um código de erro
+                
                 console.error("Resposta de erro:", {
                     data: error.response.data,
                     status: error.response.status,
@@ -56,11 +55,11 @@ function Dashboard({ user, onLogout }) {
                     alert(`Erro ao salvar projeto: ${error.response?.data?.message || error.response?.data?.error || 'Erro no servidor'}`);
                 }
             } else if (error.request) {
-                // A requisição foi feita mas não houve resposta
+                
                 console.error("Sem resposta do servidor:", error.request);
                 alert("Erro de conexão com o servidor. Verifique se o backend está rodando.");
             } else {
-                // Algo aconteceu na configuração da requisição
+                
                 console.error("Erro na configuração da requisição:", error.message);
                 alert(`Erro ao configurar requisição: ${error.message}`);
             }
@@ -71,7 +70,7 @@ function Dashboard({ user, onLogout }) {
         fetchProjects();
     }, [fetchProjects]);
 
-    // Move these inside the component function
+    
     const openModal = useCallback(() => setModalOpen(true), []);
     const closeModal = useCallback(() => setModalOpen(false), []);
 
