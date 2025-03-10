@@ -3,7 +3,7 @@ import User from '../models/user.js';
 export async function getAllUsers(requisicao, resposta) {
     try {
         const users = await User.findAll({
-            attributes: ['id', 'name', 'email', 'role'] // Excluding password from the response
+            attributes: ['id', 'name', 'email', 'role'] 
         });
         resposta.json(users);
     } catch (error) {

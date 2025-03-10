@@ -17,10 +17,10 @@ async function seed(){
       {name: 'comum', email: "comun@example.com", password: passwordCommon, role: 'common'} 
     ]);
 
-    console.log("Seed concluído!");
+    
     process.exit();
   } catch (error) {
-    console.error('erro no seed', error);
+    
     process.exit(1);
   }
 }

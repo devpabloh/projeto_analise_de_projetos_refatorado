@@ -22,15 +22,15 @@ function Login({ onLogin }) {
                 email,
                 password
             });
-            console.log("Resposta do servidor:", response.data); 
+
             localStorage.setItem("token", response.data.token);
-            console.log("Token salvo no localStorage:", localStorage.getItem("token")); 
+            
             localStorage.setItem('user', JSON.stringify(response.data.user));
-            console.log("Usuário salvo no localStorage:", localStorage.getItem("user")); 
+            
             onLogin(response.data.user);
-            console.log("onLogin chamado"); 
+            
             navigate('/dashboard'); 
-            console.log("Redirecionando para /dashboard"); 
+            
         } catch (err) {
             setError('Erro ao fazer login. Verifique suas credenciais.');
             console.error("Erro ao fazer login:", err); 

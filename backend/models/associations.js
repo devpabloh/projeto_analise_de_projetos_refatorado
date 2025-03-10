@@ -7,7 +7,7 @@ import Team from './Team.js';
 import Security from './Security.js';
 import AdditionalInfo from './AdditionalInfo.js';
 
-// User <-> Project Association
+// User <-> Project associação
 User.hasMany(Project, {
     foreignKey: 'userId',
     as: 'projects'
@@ -18,7 +18,7 @@ Project.belongsTo(User, {
     as: 'Owner'
 });
 
-// Project <-> Test Association
+// Project <-> Test associação
 Project.hasOne(Test, {
     foreignKey: 'projectId',
     as: 'tests'
@@ -28,7 +28,7 @@ Test.belongsTo(Project, {
     foreignKey: 'projectId'
 });
 
-// Project <-> Environment Association
+// Project <-> Environment associação
 Project.hasOne(Environment, {
     foreignKey: 'projectId',
     as: 'environments'
@@ -38,7 +38,7 @@ Environment.belongsTo(Project, {
     foreignKey: 'projectId'
 });
 
-// Project <-> Documentation Association
+// Project <-> Documentation associação
 Project.hasOne(Documentation, {
     foreignKey: 'projectId',
     as: 'documentations'
@@ -48,7 +48,7 @@ Documentation.belongsTo(Project, {
     foreignKey: 'projectId'
 });
 
-// Project <-> Team Association
+// Project <-> Team associação
 Project.hasOne(Team, {
     foreignKey: 'projectId',
     as: 'Teams'
@@ -58,7 +58,7 @@ Team.belongsTo(Project, {
     foreignKey: 'projectId'
 });
 
-// Project <-> Security Association
+// Project <-> Security associação
 Project.hasOne(Security, {
     foreignKey: 'projectId',
     as: 'security'
@@ -68,7 +68,7 @@ Security.belongsTo(Project, {
     foreignKey: 'projectId'
 });
 
-// Project <-> AdditionalInfo Association
+// Project <-> AdditionalInfo associação
 Project.hasOne(AdditionalInfo, {
     foreignKey: 'projectId',
     as: 'additionalInfos'

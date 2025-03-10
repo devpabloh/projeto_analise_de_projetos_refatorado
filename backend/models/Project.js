@@ -1,7 +1,5 @@
-// os models são os schemas do banco de dados, eles definem como os dados serão armazenados no banco de dados, e são usados para fazer as consultas no banco de dados. Os schemas são definidos no arquivo database.js, e são usados no arquivo user.js, que é o model do usuário.
-
-import {DataTypes} from "sequelize"; // importando o DataTypes do sequelize, que serve para trabalhar com os tipos de dados do banco de dados
-import sequelize from "../config/database.js"; // importando o Sequilize do arquivo database.js, que serve para trabalhar com o banco de dados, nele definimos as configurações do banco de dados, lá definimos configurações como host, usuário, senha, banco de dados, etc.
+import {DataTypes} from "sequelize"; 
+import sequelize from "../config/database.js"; 
 
 const Project = sequelize.define('Project', {
     id: {
@@ -42,7 +40,7 @@ const Project = sequelize.define('Project', {
         type: DataTypes.STRING
     },
     selectedTests: {
-        type: DataTypes.JSON // For array storage
+        type: DataTypes.JSON 
     },
     otherTestsDescription: {
         type: DataTypes.TEXT
@@ -74,4 +72,4 @@ const Project = sequelize.define('Project', {
     }
 })
 
-export default Project; // exportando o model do projeto, que é o model do projeto, nele definimos os campos do projeto, como nome, descrição, fase, data de início, data de entrega, etc. Também definimos as relações entre os projetos e os usuários.
+export default Project; 

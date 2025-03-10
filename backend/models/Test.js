@@ -1,5 +1,5 @@
-import { DataTypes } from "sequelize"; // importando o DataTypes do sequelize, que serve para trabalhar com os tipos de dados do banco de dados
-import sequelize from "../config/database.js"; // importando o Sequelize do arquivo database.js, que serve para trabalhar com o banco de dados, nele definimos as configurações do banco de dados, lá definimos configurações como host, usuário, senha, banco de dados, etc.
+import { DataTypes } from "sequelize"; 
+import sequelize from "../config/database.js"; 
 
 const Test = sequelize.define('Test', {
     id: { 
@@ -18,7 +18,7 @@ const Test = sequelize.define('Test', {
         type: DataTypes.STRING
     },
     selectedTests: {
-        type: DataTypes.JSON,  // Using JSON type for array storage
+        type: DataTypes.JSON,  
         defaultValue: []
     },
     otherTestsDescription: {

@@ -7,12 +7,6 @@ import Team from "../models/Team.js";
 import Security from "../models/Security.js";
 import AdditionalInfo from "../models/AdditionalInfo.js";
 
-/* 
-    Função que cria um novo projeto.
-    Para um usuário comum, o userId é forçado a vir do token (req.user.id) para evitar que um usuário 
-    manipule ou crie projetos para outro usuário.
-*/
-
 export async function createProject(requisicao, resposta) {
     try {
         const userId = requisicao.user.id;
@@ -189,11 +183,6 @@ export async function listProjects(requisicao, resposta) {
     }
 }
 
-/**
- * Atualiza um projeto.
- * Antes de atualizar, verifica se o projeto existe e se o usuário autenticado tem permissão para atualizá-lo.
- * Usuários comuns só podem atualizar seus próprios projetos.
- */
 export async function updateProject(requisicao, resposta) {
     try {
         const projectId = requisicao.params.id;
@@ -215,10 +204,7 @@ export async function updateProject(requisicao, resposta) {
     }
 }
 
-/**
- * Deleta um projeto.
- * A mesma lógica de autorização é aplicada: usuários comuns só podem deletar seus próprios projetos.
- */
+
 export async function deleteProject(requisicao, resposta) {
     try {
         const projectId = requisicao.params.id;
@@ -241,10 +227,7 @@ export async function deleteProject(requisicao, resposta) {
     }
 }
 
-/**
- * Recupera um projeto específico pelo id.
- * Verifica se o projeto pertence ao usuário comum ou, se o usuário for admin, retorna independentemente da propriedade.
- */
+
 export async function getProjectId(requisicao, resposta) {
     try {
         const projectId = requisicao.params.id;
@@ -273,6 +256,6 @@ export async function getProjectId(requisicao, resposta) {
 
         resposta.status(200).json(project);
     } catch (error) {
-        resposta.status(500).json({ error: error.message });
+        resposta.status(500).json({ error: "Ocorreu um erro interno no servidor" });
     }
 }

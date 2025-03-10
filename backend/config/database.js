@@ -1,16 +1,23 @@
-import {Sequelize} from 'sequelize' // importando sequelize que serve para trabalhar com banco de dados 
+import {Sequelize} from 'sequelize'
+import dotenv from 'dotenv'
 
-// aqui estamos criando uma variavel sequalize que vai receber um novo objeto sequalize
-const sequelize = new Sequelize('analiseDeProjetos', 'postgres', '@Tais84671514', {
-    host: 'localhost',
-    dialect: 'postgres',
-    logging: false, // Add this to reduce console noise
-    pool: {         // Add connection pool settings
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
+dotenv.config()
+
+const sequelize = new Sequelize(
+    process.env.DB_NAME || 'analiseDeProjetos', 
+    process.env.DB_USER || 'postgres', 
+    process.env.DB_PASSWORD, 
+    {
+        host: process.env.DB_HOST || 'localhost',
+        dialect: 'postgres',
+        logging: false, 
+        pool: {         
+            max: 5,
+            min: 0,
+            acquire: 30000,
+            idle: 10000
+        }
     }
-});
+);
 
 export default sequelize
