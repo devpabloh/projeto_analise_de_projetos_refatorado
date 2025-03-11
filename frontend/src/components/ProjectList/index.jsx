@@ -36,7 +36,7 @@ const ProjectList = () => {
             }
     
             const projectDetails = await response.json();
-            console.log("Detalhes do projeto recebidos:", projectDetails);
+            
             
             setSelectedProject(projectDetails);
             

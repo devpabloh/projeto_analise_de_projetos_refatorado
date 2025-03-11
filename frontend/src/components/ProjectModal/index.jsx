@@ -56,7 +56,7 @@ function ProjectModal({isOpen, isClose, onSave, project, readOnly, onEdit}){
 
     useEffect(() => {
         if (project && project.id) {
-            console.log("Estrutura completa do projeto:", JSON.stringify(project, null, 2));
+            
             let formattedDate = new Date().toISOString().split('T')[0];
             if (project.fillingDate) {
                 try {
@@ -146,7 +146,7 @@ function ProjectModal({isOpen, isClose, onSave, project, readOnly, onEdit}){
     return(
         <div className={styles.overlayStyle} onClick={handleOverlayClick}>
             <div className={styles.modalStyle} ref={modalRef} onClick={(e) => e.stopPropagation()}>
-            {console.log("Rendering modal with formData:", formData)}
+
                 <fieldset>
                     <legend>{project && project.id ? (readOnly ? 'Detalhes do projeto' : 'Editar Projeto') : 'Adicionar projeto'}</legend>
                     <form onSubmit={handleSubmit}>
