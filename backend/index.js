@@ -34,6 +34,7 @@ app.use('/analiseDeProjetos/auth', authRoutes);
 app.use('/analiseDeProjetos/users', userRoutes);
 app.use('/analiseDeProjetos/projects', projectRoutes);
 
+// Usando { force: false } para não recriar as tabelas a cada reinicialização
 sequelize.sync({ force: false })
     .then(() => {
         app.listen(PORT, () => {
